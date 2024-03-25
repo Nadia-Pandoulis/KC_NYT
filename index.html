@@ -27,92 +27,111 @@
         .selected {
             background-color: darkgrey;
         }
+
+        .grouped {
+            background-color: lightgrey;
+        }
+
+            .grouped button {
+                background-color: inherit;
+            }
+
+        .theme-button {
+            grid-column: 1 / span 4;
+            background-color: lightblue;
+        }
     </style>
 </head>
 <body>
     <h1>Word Association Game</h1>
     <div id="game-container">
-        <div id="associated-words" class="button-grid"></div>
-        <button id="submit" disabled>Submit</button>
-        <button id="deselect-all">Deselect All</button>
-        <button id="shuffle">Shuffle</button>
+        <div id="button-grid" class="button-grid"></div>
         <p id="result"></p>
-        <p id="theme-display"></p>
         <div id="lives-display">Lives: <span id="lives">● ● ● ●</span></div>
     </div>
 
     <script>
-        // Define word pairs
+        // Define word pairs with colors
         var wordPairs = [
-            { theme: "our past date locations", associatedWords: ["movies", "bowling", "sushi", "restaurant"] },
-            { theme: "tree", associatedWords: ["leaf", "branch", "bark", "wood"] },
-            { theme: "car", associatedWords: ["drive", "engine", "road", "wheel"] },
-            { theme: "yo", associatedWords: ["huh", "bruh", "bro", "pal"] }
+            { theme: "our past date locations", associatedWords: ["movies", "bowling", "sushi", "restaurant"], color: "red" },
+            { theme: "tree", associatedWords: ["leaf", "branch", "bark", "wood"], color: "green" },
+            { theme: "car", associatedWords: ["drive", "engine", "road", "wheel"], color: "blue" },
+            { theme: "yo", associatedWords: ["huh", "bruh", "bro", "pal"], color: "orange" }
         ];
 
         var lives = 4;
         var selectedWords = [];
-        var theme = "";
+        var successfulPairs = [];
 
-        var associatedWordsContainer = document.getElementById("associated-words");
-        var submitButton = document.getElementById("submit");
-        var deselectAllButton = document.getElementById("deselect-all");
-        var shuffleButton = document.getElementById("shuffle");
+        var buttonGrid = document.getElementById("button-grid");
         var resultDisplay = document.getElementById("result");
-        var themeDisplay = document.getElementById("theme-display");
         var livesDisplay = document.getElementById("lives");
 
         // Initialize game
         function initializeGame() {
             displayWords();
-            submitButton.addEventListener("click", submitAnswer);
-            deselectAllButton.addEventListener("click", deselectAll);
-            shuffleButton.addEventListener("click", shuffleWords);
         }
 
         function displayWords() {
-            var shuffledWords = shuffleArray(wordPairs.flatMap(pair => pair.associatedWords));
-            shuffledWords.forEach(function (word) {
-                var button = document.createElement("button");
-                button.textContent = word;
-                button.addEventListener("click", function () {
-                    toggleSelection(this, getThemeForWord(word));
-                });
-                associatedWordsContainer.appendChild(button);
+            buttonGrid.innerHTML = ""; // Clear previous buttons
+            wordPairs.forEach(function (wordPair) {
+                var groupIndex = successfulPairs.indexOf(wordPair);
+                if (groupIndex === -1) {
+                    wordPair.associatedWords.forEach(function (word) {
+                        var button = createButton(word);
+                        buttonGrid.appendChild(button);
+                    });
+                } else {
+                    var mergeButton = createMergeButton(wordPair.theme, wordPair.color);
+                    buttonGrid.insertBefore(mergeButton, buttonGrid.firstChild);
+                }
             });
         }
 
-        function toggleSelection(button, currentTheme) {
-            button.classList.toggle("selected");
-            if (button.classList.contains("selected")) {
-                selectedWords.push(button.textContent);
-                if (selectedWords.length === 4) {
-                    submitButton.removeAttribute("disabled");
-                }
-            } else {
-                selectedWords = selectedWords.filter(word => word !== button.textContent);
-                submitButton.setAttribute("disabled", "disabled");
-                themeDisplay.textContent = ""; // Clear theme display if words are deselected
-            }
+        function createButton(word) {
+            var button = document.createElement("button");
+            button.textContent = word;
+            button.addEventListener("click", function () {
+                toggleSelection(this);
+            });
+            return button;
         }
 
-        function getThemeForWord(word) {
-            return wordPairs.find(pair => pair.associatedWords.includes(word)).theme;
+        function createMergeButton(theme, color) {
+            var button = document.createElement("button");
+            button.textContent = theme;
+            button.classList.add("theme-button");
+            button.style.backgroundColor = color; // Set background color
+            return button;
+        }
+
+        function toggleSelection(button) {
+            button.classList.toggle("selected");
+            var word = button.textContent;
+            if (button.classList.contains("selected")) {
+                selectedWords.push(word);
+            } else {
+                selectedWords = selectedWords.filter(w => w !== word);
+            }
+            if (selectedWords.length === 4) {
+                submitAnswer();
+            }
         }
 
         function submitAnswer() {
-            if (selectedWords.length === 4) {
-                if (selectedWords.every(word => wordPairContainsWord(word))) {
-                    theme = getThemeForWord(selectedWords[0]);
-                    themeDisplay.textContent = "Theme: " + theme;
-                } else {
-                    updateLives(-1);
-                }
+            var currentPair = findWordPair(selectedWords[0]);
+            if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
+                successfulPairs.push(currentPair);
+                resultDisplay.textContent = "Correct!";
+                displayWords();
+            } else {
+                updateLives(-1);
             }
+            selectedWords = [];
         }
 
-        function wordPairContainsWord(word) {
-            return wordPairs.some(wordPair => wordPair.associatedWords.includes(word));
+        function findWordPair(word) {
+            return wordPairs.find(pair => pair.associatedWords.includes(word));
         }
 
         function updateLives(change) {
@@ -122,44 +141,14 @@
                 livesText += "● ";
             }
             livesDisplay.textContent = livesText;
-        }
-
-        function deselectAll() {
-            var buttons = associatedWordsContainer.querySelectorAll("button.selected");
-            buttons.forEach(function (button) {
-                button.classList.remove("selected");
-            });
-            selectedWords = [];
-            submitButton.setAttribute("disabled", "disabled");
-            themeDisplay.textContent = ""; // Clear theme display
-        }
-
-        function shuffleWords() {
-            var unselectedButtons = Array.from(associatedWordsContainer.querySelectorAll("button:not(.selected)"));
-            var shuffledButtons = shuffleArray(unselectedButtons);
-            associatedWordsContainer.innerHTML = "";
-            shuffledButtons.forEach(function (button) {
-                associatedWordsContainer.appendChild(button);
-            });
-        }
-
-        function shuffleArray(array) {
-            var currentIndex = array.length, temporaryValue, randomIndex;
-
-            // While there remain elements to shuffle...
-            while (0 !== currentIndex) {
-
-                // Pick a remaining element...
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex -= 1;
-
-                // And swap it with the current element.
-                temporaryValue = array[currentIndex];
-                array[currentIndex] = array[randomIndex];
-                array[randomIndex] = temporaryValue;
+            if (lives === 0) {
+                gameOver();
             }
+        }
 
-            return array;
+        function gameOver() {
+            resultDisplay.textContent = "Game Over!";
+            // You can add additional game over logic here
         }
 
         // Call initializeGame to start the game
