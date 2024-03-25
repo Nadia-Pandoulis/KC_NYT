@@ -33,7 +33,9 @@
     <h1>Word Association Game</h1>
     <div id="game-container">
         <div id="associated-words" class="button-grid"></div>
-        <button id="submit">Submit</button>
+        <button id="submit" disabled>Submit</button>
+        <button id="deselect-all">Deselect All</button>
+        <button id="shuffle">Shuffle</button>
         <p id="result"></p>
         <p id="theme-display"></p>
         <div id="lives-display">Lives: <span id="lives">● ● ● ●</span></div>
@@ -54,6 +56,8 @@
 
         var associatedWordsContainer = document.getElementById("associated-words");
         var submitButton = document.getElementById("submit");
+        var deselectAllButton = document.getElementById("deselect-all");
+        var shuffleButton = document.getElementById("shuffle");
         var resultDisplay = document.getElementById("result");
         var themeDisplay = document.getElementById("theme-display");
         var livesDisplay = document.getElementById("lives");
@@ -62,18 +66,19 @@
         function initializeGame() {
             displayWords();
             submitButton.addEventListener("click", submitAnswer);
+            deselectAllButton.addEventListener("click", deselectAll);
+            shuffleButton.addEventListener("click", shuffleWords);
         }
 
         function displayWords() {
-            wordPairs.forEach(function (wordPair) {
-                wordPair.associatedWords.forEach(function (word) {
-                    var button = document.createElement("button");
-                    button.textContent = word;
-                    button.addEventListener("click", function () {
-                        toggleSelection(this, wordPair.theme);
-                    });
-                    associatedWordsContainer.appendChild(button);
+            var shuffledWords = shuffleArray(wordPairs.flatMap(pair => pair.associatedWords));
+            shuffledWords.forEach(function (word) {
+                var button = document.createElement("button");
+                button.textContent = word;
+                button.addEventListener("click", function () {
+                    toggleSelection(this, getThemeForWord(word));
                 });
+                associatedWordsContainer.appendChild(button);
             });
         }
 
@@ -82,29 +87,32 @@
             if (button.classList.contains("selected")) {
                 selectedWords.push(button.textContent);
                 if (selectedWords.length === 4) {
-                    if (selectedWords.every(word => wordPairContainsWord(word))) {
-                        theme = currentTheme;
-                        themeDisplay.textContent = "Theme: " + theme;
-                    } else {
-                        updateLives(-1);
-                    }
+                    submitButton.removeAttribute("disabled");
                 }
             } else {
                 selectedWords = selectedWords.filter(word => word !== button.textContent);
+                submitButton.setAttribute("disabled", "disabled");
+                themeDisplay.textContent = ""; // Clear theme display if words are deselected
+            }
+        }
+
+        function getThemeForWord(word) {
+            return wordPairs.find(pair => pair.associatedWords.includes(word)).theme;
+        }
+
+        function submitAnswer() {
+            if (selectedWords.length === 4) {
+                if (selectedWords.every(word => wordPairContainsWord(word))) {
+                    theme = getThemeForWord(selectedWords[0]);
+                    themeDisplay.textContent = "Theme: " + theme;
+                } else {
+                    updateLives(-1);
+                }
             }
         }
 
         function wordPairContainsWord(word) {
             return wordPairs.some(wordPair => wordPair.associatedWords.includes(word));
-        }
-
-        function submitAnswer() {
-            if (theme !== "") {
-                resultDisplay.textContent = "Correct!";
-            } else {
-                resultDisplay.textContent = "Incorrect. Try again.";
-                updateLives(-1);
-            }
         }
 
         function updateLives(change) {
@@ -114,6 +122,44 @@
                 livesText += "● ";
             }
             livesDisplay.textContent = livesText;
+        }
+
+        function deselectAll() {
+            var buttons = associatedWordsContainer.querySelectorAll("button.selected");
+            buttons.forEach(function (button) {
+                button.classList.remove("selected");
+            });
+            selectedWords = [];
+            submitButton.setAttribute("disabled", "disabled");
+            themeDisplay.textContent = ""; // Clear theme display
+        }
+
+        function shuffleWords() {
+            var unselectedButtons = Array.from(associatedWordsContainer.querySelectorAll("button:not(.selected)"));
+            var shuffledButtons = shuffleArray(unselectedButtons);
+            associatedWordsContainer.innerHTML = "";
+            shuffledButtons.forEach(function (button) {
+                associatedWordsContainer.appendChild(button);
+            });
+        }
+
+        function shuffleArray(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
         }
 
         // Call initializeGame to start the game
