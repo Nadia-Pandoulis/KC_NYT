@@ -134,13 +134,17 @@
             var currentPair = findWordPair(selectedWords[0]);
             if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
                 successfulPairs.push(currentPair);
-                resultDisplay.textContent = "Correct!";
                 displayWords();
             } else {
                 updateLives(-1);
             }
             selectedWords = [];
             submitButton.setAttribute("disabled", "disabled");
+        }
+
+        function gameOver() {
+            alert("Game Over!");
+            // You can add additional game over logic here
         }
 
         function findWordPair(word) {
@@ -159,10 +163,6 @@
             }
         }
 
-        function gameOver() {
-            resultDisplay.textContent = "Game Over!";
-            // You can add additional game over logic here
-        }
 
         function deselectAll() {
             var buttons = document.querySelectorAll(".selected");
