@@ -87,8 +87,10 @@
                 var groupIndex = successfulPairs.indexOf(wordPair);
                 if (groupIndex === -1) {
                     var shuffledWords = shuffleArray(wordPair.associatedWords);
-                    shuffledWords.forEach(function (word) {
-                        var button = createButton(word);
+                    var shuffledButtons = shuffledWords.map(function (word) {
+                        return createButton(word);
+                    });
+                    shuffledButtons.forEach(function (button) {
                         buttonGrid.appendChild(button);
                     });
                 } else {
@@ -97,6 +99,7 @@
                 }
             });
         }
+
 
         function createButton(word) {
             var button = document.createElement("button");
