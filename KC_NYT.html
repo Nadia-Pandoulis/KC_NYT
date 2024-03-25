@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Association Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Word Association Game</h1>
+    <div id="game-container">
+        <p id="word-display"></p>
+        <div id="associated-words"></div>
+        <p id="result"></p>
+    </div>
+
+    <script>
+    // Define word pairs
+    var wordPairs = [
+        { word: "dog", associatedWords: ["bark", "pet", "tail", "paw"] },
+        { word: "tree", associatedWords: ["leaf", "branch", "bark", "wood"] },
+        { word: "car", associatedWords: ["drive", "engine", "road", "wheel"] }
+        // Add more word pairs as needed
+    ];
+
+    // Get random word pair
+    function getRandomWordPair() {
+        return wordPairs[Math.floor(Math.random() * wordPairs.length)];
+    }
+
+    // Initialize game
+    function initializeGame() {
+        var gameContainer = document.getElementById("game-container");
+        var wordDisplay = document.getElementById("word-display");
+        var associatedWordsContainer = document.getElementById("associated-words");
+        var resultDisplay = document.getElementById("result");
+
+        var wordPair = getRandomWordPair();
+        var currentWord = wordPair.word;
+        var associatedWords = wordPair.associatedWords;
+
+        wordDisplay.textContent = "Word: " + currentWord;
+
+        // Clear previous associated words
+        associatedWordsContainer.innerHTML = "";
+
+        // Create buttons for associated words
+        associatedWords.forEach(function(word) {
+            var button = document.createElement("button");
+            button.textContent = word;
+            button.addEventListener("click", function() {
+                if (associatedWords.includes(this.textContent)) {
+                    resultDisplay.textContent = "Correct!";
+                } else {
+                    resultDisplay.textContent = "Incorrect. Try again.";
+                }
+            });
+            associatedWordsContainer.appendChild(button);
+        });
+    }
+
+    // Call initializeGame to start the game
+    initializeGame();
+    </script>
+</body>
+</html>
