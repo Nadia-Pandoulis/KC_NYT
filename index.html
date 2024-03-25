@@ -24,13 +24,8 @@
             margin-top: 20px;
         }
 
-        #theme-display {
-            display: none; /* Hide the theme initially */
-            margin-top: 20px;
-        }
-
-        .lives {
-            margin-top: 20px;
+        .selected {
+            background-color: darkgrey;
         }
     </style>
 </head>
@@ -38,11 +33,10 @@
     <h1>Word Association Game</h1>
     <div id="game-container">
         <div id="associated-words" class="button-grid"></div>
-        <button id="deselect-all">Deselect All</button>
         <button id="submit">Submit</button>
         <p id="result"></p>
         <p id="theme-display"></p>
-        <div id="lives-display" class="lives">Lives: <span id="lives">● ● ● ●</span></div>
+        <div id="lives-display">Lives: <span id="lives">● ● ● ●</span></div>
     </div>
 
     <script>
@@ -54,77 +48,59 @@
             { theme: "yo", associatedWords: ["huh", "bruh", "bro", "pal"] }
         ];
 
-        var currentPairIndex = 0;
-        var currentWordPair = wordPairs[currentPairIndex];
-        var currentTheme = currentWordPair.theme;
-        var associatedWords = currentWordPair.associatedWords.slice();
         var lives = 4;
+        var selectedWords = [];
+        var theme = "";
 
         var associatedWordsContainer = document.getElementById("associated-words");
-        var deselectAllButton = document.getElementById("deselect-all");
         var submitButton = document.getElementById("submit");
         var resultDisplay = document.getElementById("result");
         var themeDisplay = document.getElementById("theme-display");
         var livesDisplay = document.getElementById("lives");
 
-        // Shuffle array function
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
         // Initialize game
         function initializeGame() {
-            shuffleArray(associatedWords);
             displayWords();
-            themeDisplay.textContent = "Theme: " + currentTheme; // Show theme after all words are selected
-            themeDisplay.style.display = "block"; // Show theme display
-
-            deselectAllButton.addEventListener("click", deselectAll);
             submitButton.addEventListener("click", submitAnswer);
         }
 
         function displayWords() {
-            // Clear previous associated words
-            associatedWordsContainer.innerHTML = "";
-
-            // Create buttons for associated words
-            associatedWords.forEach(function (word) {
-                var button = document.createElement("button");
-                button.textContent = word;
-                button.addEventListener("click", toggleSelection);
-                associatedWordsContainer.appendChild(button);
+            wordPairs.forEach(function (wordPair) {
+                wordPair.associatedWords.forEach(function (word) {
+                    var button = document.createElement("button");
+                    button.textContent = word;
+                    button.addEventListener("click", function () {
+                        toggleSelection(this, wordPair.theme);
+                    });
+                    associatedWordsContainer.appendChild(button);
+                });
             });
         }
 
-        function toggleSelection() {
-            this.classList.toggle("selected");
+        function toggleSelection(button, currentTheme) {
+            button.classList.toggle("selected");
+            if (button.classList.contains("selected")) {
+                selectedWords.push(button.textContent);
+                if (selectedWords.length === 4) {
+                    if (selectedWords.every(word => wordPairContainsWord(word))) {
+                        theme = currentTheme;
+                        themeDisplay.textContent = "Theme: " + theme;
+                    } else {
+                        updateLives(-1);
+                    }
+                }
+            } else {
+                selectedWords = selectedWords.filter(word => word !== button.textContent);
+            }
         }
 
-        function deselectAll() {
-            var buttons = associatedWordsContainer.querySelectorAll("button");
-            buttons.forEach(function (button) {
-                button.classList.remove("selected");
-            });
+        function wordPairContainsWord(word) {
+            return wordPairs.some(wordPair => wordPair.associatedWords.includes(word));
         }
 
         function submitAnswer() {
-            var selectedWords = associatedWordsContainer.querySelectorAll(".selected");
-            var selectedWordTexts = Array.from(selectedWords).map(function (word) {
-                return word.textContent;
-            });
-
-            if (selectedWordTexts.length !== 4) {
-                resultDisplay.textContent = "Please select exactly four words.";
-                return;
-            }
-
-            if (selectedWordTexts.join() === associatedWords.join()) {
+            if (theme !== "") {
                 resultDisplay.textContent = "Correct!";
-                nextWordPair();
             } else {
                 resultDisplay.textContent = "Incorrect. Try again.";
                 updateLives(-1);
@@ -138,18 +114,6 @@
                 livesText += "● ";
             }
             livesDisplay.textContent = livesText;
-        }
-
-        function nextWordPair() {
-            currentPairIndex++;
-            if (currentPairIndex < wordPairs.length) {
-                currentWordPair = wordPairs[currentPairIndex];
-                currentTheme = currentWordPair.theme;
-                associatedWords = shuffleArray(currentWordPair.associatedWords.slice());
-                initializeGame(); // Start next word pair
-            } else {
-                resultDisplay.textContent = "Congratulations! You've completed all word pairs.";
-            }
         }
 
         // Call initializeGame to start the game
