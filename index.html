@@ -114,6 +114,17 @@
                 }
             });
 
+            var row = 1; // Start with row 1
+            // Create merge buttons for successful pairs
+            successfulPairs.forEach(function (wordPair) {
+                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
+                mergeButton.style.gridRow = row; // Set grid row
+                buttonGrid.appendChild(mergeButton);
+                row++; // Increment row for next merge button
+            });
+        }
+
+
             // Create merge buttons for successful pairs
             successfulPairs.forEach(function (wordPair) {
                 var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
