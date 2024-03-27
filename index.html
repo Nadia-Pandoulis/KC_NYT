@@ -138,6 +138,17 @@
         var resultDisplay = document.getElementById("result");
         var livesDisplay = document.getElementById("lives");
 
+        // Merge button width
+        // Calculate the width of merge buttons dynamically based on the number of columns
+        var numColumns = 4; // Update this value with the actual number of columns in your grid
+        var buttonWidth = 100 / numColumns + '%'; // Calculate the width as a percentage
+
+        // Apply the width to merge buttons
+        var mergeButtons = document.querySelectorAll('.theme-button');
+        mergeButtons.forEach(function (button) {
+            button.style.width = buttonWidth;
+        });
+
         // Initialize game
         function initializeGame() {
             displayWords();
