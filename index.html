@@ -134,19 +134,6 @@
         }
 
 
-
-
-
-            // Create merge buttons for successful pairs
-            successfulPairs.forEach(function (wordPair) {
-                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
-                buttonGrid.insertBefore(mergeButton, buttonGrid.firstChild);
-            });
-        }
-
-
-
-
         function createButton(word) {
             var button = document.createElement("button");
             button.textContent = word;
