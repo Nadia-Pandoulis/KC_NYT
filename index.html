@@ -28,6 +28,7 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 5px;
             margin-top: 20px;
+            border: none;
         }
 
         .selected {
@@ -149,8 +150,15 @@
             button.classList.add("theme-button");
             button.style.backgroundColor = color; // Set background color
 
-            // Append theme and associated words
-            button.textContent = theme + ": " + associatedWords.join(", ");
+            // Create strong element for theme title
+            var themeTitle = document.createElement("strong");
+            themeTitle.textContent = theme;
+            button.appendChild(themeTitle);
+
+            // Append associated words as separate div element
+            var associatedWordsDiv = document.createElement("div");
+            associatedWordsDiv.textContent = associatedWords.join(", ");
+            button.appendChild(associatedWordsDiv);
 
             return button;
         }
