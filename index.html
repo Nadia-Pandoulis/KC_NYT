@@ -154,24 +154,19 @@
                 return !successfulPairs.includes(pair);
             });
 
-            var currentRow = document.createElement("div"); // Create a new row
-            currentRow.classList.add("button-grid");
-            buttonGrid.appendChild(currentRow);
+            var currentRow; // Declare currentRow variable outside the loop
 
             // Create merge buttons for successful pairs
-            successfulPairs.forEach(function (wordPair) {
-                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
-
-                if (mergeButtonCreated) {
-                    // Create a new row for the merge button
-                    currentRow = document.createElement("div");
+            successfulPairs.forEach(function (wordPair, index) {
+                if (index % 4 === 0) {
+                    currentRow = document.createElement("div"); // Create a new row for every 4th merge button
                     currentRow.classList.add("button-grid");
                     buttonGrid.appendChild(currentRow);
-                } else {
-                    mergeButtonCreated = true; // Set mergeButtonCreated to true after the first merge button is created
                 }
 
+                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
                 currentRow.appendChild(mergeButton); // Append merge button to the current row
+                mergeButtonCreated = true; // Set mergeButtonCreated to true after the first merge button is created
             });
 
             // Create buttons for remaining pairs
@@ -183,15 +178,19 @@
                         return createButton(word);
                     });
 
-                    // Shuffle the buttons before appending to the grid
-                    shuffledButtons = shuffleArray(shuffledButtons);
-
                     shuffledButtons.forEach(function (button) {
+                        if (!mergeButtonCreated) {
+                            currentRow = document.createElement("div"); // Create a new row if no merge button is created
+                            currentRow.classList.add("button-grid");
+                            buttonGrid.appendChild(currentRow);
+                            mergeButtonCreated = true;
+                        }
                         currentRow.appendChild(button); // Append button to the current row
                     });
                 }
             });
         }
+
 
 
 
