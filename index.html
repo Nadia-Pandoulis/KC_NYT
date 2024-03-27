@@ -109,11 +109,19 @@
             outline: none;
             height: 50px;
             flex-direction: column;
-            justify-content: center;
-            display: inline-block;
+            display: flex;
             margin-top: 5px;
             width: 100%;
+            position: relative;
             text-align: center;
+            justify-content: center;
+        }
+
+        .theme-button strong {
+            position: absolute; /* Position the theme text absolutely */
+            top: 50%; /* Move the text 50% from the top */
+            left: 50%; /* Move the text 50% from the left */
+            transform: translate(-50%, -50%); /* Center the text both horizontally and vertically */
         }
 
         #lives-display {
