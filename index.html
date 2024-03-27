@@ -357,12 +357,16 @@
                 buttonGrid.appendChild(button);
             });
 
-            // Shuffle and append regular buttons
+            // Create a new row for regular buttons
+            var currentRow = document.createElement("div");
+            currentRow.classList.add("button-grid");
+            buttonGrid.appendChild(currentRow);
+
+            // Append shuffled regular buttons to the current row
             shuffledRegularButtons.forEach(function (button) {
-                buttonGrid.appendChild(button);
+                currentRow.appendChild(button);
             });
         }
-
 
 
 
