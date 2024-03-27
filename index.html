@@ -175,6 +175,9 @@
 
         // Initialize game
         function initializeGame() {
+            displayWords();
+            shuffleWords();
+
             var numColumns = 4; // Adjust this value based on the number of columns in your grid
             var buttonGridWidth = (100 / numColumns) * numColumns + '%'; // Calculate the width of the button grid
             buttonGrid.style.width = buttonGridWidth; // Set the width of the button grid
@@ -185,8 +188,6 @@
                 button.style.width = buttonGridWidth;
             });
 
-            displayWords();
-            shuffleWords();
             submitButton.addEventListener("click", submitAnswer);
             deselectAllButton.addEventListener("click", deselectAll);
             shuffleButton.addEventListener("click", shuffleWords);
