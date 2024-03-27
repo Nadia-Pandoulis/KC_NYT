@@ -202,16 +202,9 @@
         }
 
         function shuffleWords() {
-            var buttons = Array.from(document.querySelectorAll(".button-grid button:not(.theme-button)"));
+            var buttons = Array.from(document.querySelectorAll(".button-grid button"));
             var shuffledButtons = shuffleArray(buttons);
             buttonGrid.innerHTML = ""; // Clear previous buttons
-
-            // Append merged buttons first
-            document.querySelectorAll(".theme-button").forEach(function (button) {
-                buttonGrid.appendChild(button);
-            });
-
-            // Append shuffled regular buttons
             shuffledButtons.forEach(function (button) {
                 buttonGrid.appendChild(button);
             });
