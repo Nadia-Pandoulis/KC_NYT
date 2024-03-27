@@ -216,7 +216,6 @@
                 currentRow.appendChild(mergeButton); // Append merge button to the current row
                 mergeButtonCreated = true; // Set mergeButtonCreated to true after the first merge button is created
             });
-            shuffleWords(); // shuffle words to fix layout and make sure wordpairs are not in line
 
             // Create buttons for remaining pairs
             remainingPairs.forEach(function (wordPair) {
@@ -238,6 +237,7 @@
                     });
                 }
             });
+            shuffleWords();
         }
 
 
@@ -357,17 +357,11 @@
                 buttonGrid.appendChild(button);
             });
 
-            // Create a new row for regular buttons
-            var currentRow = document.createElement("div");
-            currentRow.classList.add("button-grid");
-            buttonGrid.appendChild(currentRow);
-
-            // Append shuffled regular buttons to the current row
+            // Shuffle and append regular buttons
             shuffledRegularButtons.forEach(function (button) {
-                currentRow.appendChild(button);
+                buttonGrid.appendChild(button);
             });
         }
-
 
 
         function shuffleArray(array) {
