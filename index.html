@@ -175,6 +175,16 @@
 
         // Initialize game
         function initializeGame() {
+            var numColumns = 4; // Adjust this value based on the number of columns in your grid
+            var buttonGridWidth = (100 / numColumns) * numColumns + '%'; // Calculate the width of the button grid
+            buttonGrid.style.width = buttonGridWidth; // Set the width of the button grid
+
+            // Set the width of the merge buttons to match the initial button grid width
+            var mergeButtons = document.querySelectorAll('.theme-button');
+            mergeButtons.forEach(function (button) {
+                button.style.width = buttonGridWidth;
+            });
+
             displayWords();
             shuffleWords();
             submitButton.addEventListener("click", submitAnswer);
@@ -206,16 +216,6 @@
                 mergeButtonCreated = true; // Set mergeButtonCreated to true after the first merge button is created
             });
 
-            // Calculate the width of merge buttons dynamically based on the number of successful pairs
-            var numSuccessfulPairs = successfulPairs.length;
-            var buttonWidth = 100 / numSuccessfulPairs + '%'; // Calculate the width as a percentage
-
-            // Apply the width to merge buttons
-            var mergeButtons = document.querySelectorAll('.theme-button');
-            mergeButtons.forEach(function (button) {
-                button.style.width = buttonWidth;
-            });
-
             // Create buttons for remaining pairs
             remainingPairs.forEach(function (wordPair) {
                 var groupIndex = successfulPairs.indexOf(wordPair);
@@ -237,9 +237,6 @@
                 }
             });
         }
-
-
-
 
 
         function createButton(word) {
