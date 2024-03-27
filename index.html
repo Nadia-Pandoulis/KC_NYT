@@ -26,6 +26,8 @@
             text-transform: uppercase;
             background-color: #EFEFE6;
             border-radius: 10px;
+            border: none;
+            outline: none;
         }
 
         .button-grid {
@@ -33,9 +35,7 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 5px;
             margin-top: 20px;
-            border: none;
             border-radius: 10px;
-            outline: none;
         }
 
         .button-action {
@@ -44,7 +44,6 @@
             font-size: 16px;
             cursor: pointer;
             font-family: 'ITC Franklin Gothic LT Demi', sans-serif;
-            text-transform: uppercase;
             border: none;
             border-radius: 10px;
             outline: none;
@@ -53,10 +52,10 @@
             border: 2px solid black;
         }
 
-            /* Styles for disabled state */
-            .button-action:disabled {
-                opacity: 0.5;
-            }
+        /* Styles for disabled state */
+        .button-action:disabled {
+            opacity: 0.5;
+        }
 
         /* Styles for selected submit button */
         #submit.selected {
@@ -64,6 +63,7 @@
             color: white;
             border: 2px solid black;
         }
+
         .selected {
             background-color: #5a594e; 
             color: white;
