@@ -112,31 +112,27 @@
             border: none;
             outline: none;
             height: auto; /* Change height to auto to accommodate content */
-            position: relative;
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
         }
 
         .theme-button strong {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: block; /* Ensure the theme text is displayed as a block element */
+            margin-bottom: 10px; /* Adjust margin to create space between theme text and associated words */
         }
 
         .theme-button div {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center; /* Center the associated words */
-            width: 100%; /* Ensure the associated words span the entire width */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .theme-button div span {
-            display: block; /* Make each associated word appear on a separate line */
+            margin-bottom: 5px; /* Adjust margin to create space between associated words */
         }
+
         
         #lives-display {
             font-family: "Monotype News Gothic Paneuropean Regular", sans-serif;
