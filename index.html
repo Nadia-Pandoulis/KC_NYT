@@ -206,6 +206,16 @@
                 mergeButtonCreated = true; // Set mergeButtonCreated to true after the first merge button is created
             });
 
+            // Calculate the width of merge buttons dynamically based on the number of successful pairs
+            var numSuccessfulPairs = successfulPairs.length;
+            var buttonWidth = 100 / numSuccessfulPairs + '%'; // Calculate the width as a percentage
+
+            // Apply the width to merge buttons
+            var mergeButtons = document.querySelectorAll('.theme-button');
+            mergeButtons.forEach(function (button) {
+                button.style.width = buttonWidth;
+            });
+
             // Create buttons for remaining pairs
             remainingPairs.forEach(function (wordPair) {
                 var groupIndex = successfulPairs.indexOf(wordPair);
@@ -227,6 +237,7 @@
                 }
             });
         }
+
 
 
 
