@@ -38,6 +38,25 @@
             outline: none;
         }
 
+        .button-action {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'ITC Franklin Gothic LT Demi', sans-serif;
+            text-transform: uppercase;
+            background-color: #EFEFE6;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .button-action {
+            background-color: white;
+            border-radius: 30px;
+            outline: black;
+        }
+
         .selected {
             background-color: #5a594e; 
             color: white;
@@ -70,9 +89,9 @@
     <h2> Create four groups of four! </h2>
     <div id="game-container">
         <div id="button-grid" class="button-grid"></div>
-        <button id="shuffle">Shuffle</button>
-        <button id="deselect-all" disabled>Deselect All</button>
-        <button id="submit" disabled>Submit</button>
+        <button id="shuffle" class="button-action">Shuffle</button>
+        <button id="deselect-all" class="button-action" disabled>Deselect All</button>
+        <button id="submit" class="button-action" disabled>Submit</button>
         <p id="result"></p>
         <div id="lives-display">Mistakes Remaining: <span id="lives">● ● ● ●</span></div>
     </div>
