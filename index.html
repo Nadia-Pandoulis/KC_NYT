@@ -109,6 +109,12 @@
                 return !successfulPairs.includes(pair);
             });
 
+            // Create merge buttons for successful pairs
+            successfulPairs.forEach(function (wordPair) {
+                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
+                buttonGrid.insertBefore(mergeButton, buttonGrid.firstChild); // Insert merged buttons at the beginning
+            });
+
             // Create buttons for remaining pairs
             remainingPairs.forEach(function (wordPair) {
                 var groupIndex = successfulPairs.indexOf(wordPair);
@@ -120,18 +126,10 @@
                     shuffledButtons.forEach(function (button) {
                         buttonGrid.appendChild(button);
                     });
-                } else {
-                    var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
-                    buttonGrid.appendChild(mergeButton);
                 }
             });
-
-            // Create merge buttons for successful pairs
-            successfulPairs.forEach(function (wordPair) {
-                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
-                buttonGrid.appendChild(mergeButton);
-            });
         }
+
 
 
         function createButton(word) {
