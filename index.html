@@ -13,6 +13,10 @@
             font-family: 'ButtonFont';
             src: url('ITC Franklin Gothic LT Demi Regular.otf') format('opentype');
         }
+        @font-face {
+            font-family: 'WordlistFont';
+            src: url('Franklin Gothic Book Regular.ttf') format('opentype');
+        }
         h1 {
             font-family: 'KC', sans-serif;
         }
@@ -249,13 +253,15 @@
             themeTitle.textContent = theme;
             button.appendChild(themeTitle);
 
-            // Append associated words as separate div element
+            // Append associated words as separate div element with a different font family
             var associatedWordsDiv = document.createElement("div");
             associatedWordsDiv.textContent = associatedWords.join(", ");
+            associatedWordsDiv.style.fontFamily = "'WordlistFont', sans-serif"; // Replace 'YourCustomFont' with your desired font family
             button.appendChild(associatedWordsDiv);
 
             return button;
         }
+
 
         function toggleSelection(button) {
             // Check if there are already four selected buttons
