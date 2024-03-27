@@ -130,6 +130,11 @@
         }
 
         function toggleSelection(button) {
+            // Check if there are already four selected buttons
+            if (selectedWords.length === 4 && !button.classList.contains("selected")) {
+                return; // Do nothing if already four selected and trying to select another
+            }
+
             button.classList.toggle("selected");
             var word = button.textContent;
             if (button.classList.contains("selected")) {
