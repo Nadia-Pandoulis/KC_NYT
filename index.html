@@ -94,7 +94,14 @@
 
         function displayWords() {
             buttonGrid.innerHTML = ""; // Clear previous buttons
-            wordPairs.forEach(function (wordPair) {
+
+            // Filter out successful pairs
+            var remainingPairs = wordPairs.filter(function (pair) {
+                return !successfulPairs.includes(pair);
+            });
+
+            // Create buttons for remaining pairs
+            remainingPairs.forEach(function (wordPair) {
                 var groupIndex = successfulPairs.indexOf(wordPair);
                 if (groupIndex === -1) {
                     var shuffledWords = shuffleArray(wordPair.associatedWords);
@@ -110,6 +117,7 @@
                 }
             });
         }
+
 
 
         function createButton(word) {
