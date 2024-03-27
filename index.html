@@ -119,13 +119,17 @@
 
         .theme-button strong {
             position: absolute;
-            top: 10%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-20%);
+            transform: translate(-50%, -50%);
+            display: block; /* Ensure the theme text is displayed as a block element */
         }
 
         .theme-button div {
-            margin-top: 50px; /* Adjust margin to separate the lines */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center; /* Center the associated words */
             width: 100%; /* Ensure the associated words span the entire width */
         }
