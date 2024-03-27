@@ -341,19 +341,27 @@
         }
 
         function shuffleWords() {
+            // Get regular buttons and merge buttons separately
+            var regularButtons = Array.from(document.querySelectorAll(".button-grid button:not(.theme-button)"));
             var mergeButtons = Array.from(document.querySelectorAll('.theme-button'));
+
+            // Shuffle regular buttons
+            var shuffledRegularButtons = shuffleArray(regularButtons);
+
+            // Clear the button grid
+            buttonGrid.innerHTML = "";
+
+            // Append merge buttons back to the button grid
             mergeButtons.forEach(function (button) {
-                buttonGrid.appendChild(button); // Append merge buttons back to the button grid
+                buttonGrid.appendChild(button);
             });
 
-            var buttonsToShuffle = Array.from(document.querySelectorAll(".button-grid button:not(.theme-button)"));
-            var shuffledButtons = shuffleArray(buttonsToShuffle);
-            buttonGrid.innerHTML = ""; // Clear previous buttons
-
-            shuffledButtons.forEach(function (button) {
+            // Shuffle and append regular buttons
+            shuffledRegularButtons.forEach(function (button) {
                 buttonGrid.appendChild(button);
             });
         }
+
 
 
 
