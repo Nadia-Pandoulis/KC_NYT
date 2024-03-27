@@ -140,6 +140,7 @@
 
         function displayWords() {
             buttonGrid.innerHTML = ""; // Clear previous buttons
+            var mergeButtonCreated = false; // Variable to track if merge button has been created
 
             // Filter out successful pairs
             var remainingPairs = wordPairs.filter(function (pair) {
@@ -149,7 +150,18 @@
             // Create merge buttons for successful pairs
             successfulPairs.forEach(function (wordPair) {
                 var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
-                buttonGrid.insertBefore(mergeButton, buttonGrid.firstChild); // Insert merged buttons at the beginning
+
+                // Check if merge button has already been created
+                if (mergeButtonCreated) {
+                    // Create a new row for the merge button
+                    var newRow = document.createElement("div");
+                    newRow.classList.add("button-grid");
+                    buttonGrid.appendChild(newRow);
+                    newRow.appendChild(mergeButton);
+                } else {
+                    buttonGrid.insertBefore(mergeButton, buttonGrid.firstChild); // Insert merged buttons at the beginning
+                    mergeButtonCreated = true; // Set mergeButtonCreated to true
+                }
             });
 
             // Create buttons for remaining pairs
@@ -170,8 +182,6 @@
                 }
             });
         }
-
-
 
 
         function createButton(word) {
