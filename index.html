@@ -341,13 +341,20 @@
         }
 
         function shuffleWords() {
-            var buttons = Array.from(document.querySelectorAll(".button-grid button:not(.theme-button)"));
-            var shuffledButtons = shuffleArray(buttons);
+            var buttonsToShuffle = Array.from(document.querySelectorAll(".button-grid button:not(.theme-button)"));
+            var shuffledButtons = shuffleArray(buttonsToShuffle);
             buttonGrid.innerHTML = ""; // Clear previous buttons
+
+            var mergeButtons = Array.from(document.querySelectorAll('.theme-button'));
+            mergeButtons.forEach(function (button) {
+                buttonGrid.appendChild(button); // Append merge buttons back to the button grid
+            });
+
             shuffledButtons.forEach(function (button) {
                 buttonGrid.appendChild(button);
             });
         }
+
 
         function shuffleArray(array) {
             var currentIndex = array.length, temporaryValue, randomIndex;
