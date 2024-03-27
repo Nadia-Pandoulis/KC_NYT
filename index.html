@@ -111,12 +111,16 @@
                     shuffledButtons.forEach(function (button) {
                         buttonGrid.appendChild(button);
                     });
-                } else {
-                    var mergeButton = createMergeButton(wordPair.theme, wordPair.color);
-                    buttonGrid.insertBefore(mergeButton, buttonGrid.firstChild);
                 }
             });
+
+            // Create merge buttons for successful pairs
+            successfulPairs.forEach(function (wordPair) {
+                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
+                buttonGrid.insertBefore(mergeButton, buttonGrid.firstChild);
+            });
         }
+
 
 
 
