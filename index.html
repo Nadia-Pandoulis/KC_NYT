@@ -129,11 +129,14 @@
             return button;
         }
 
-        function createMergeButton(theme, color) {
+        function createMergeButton(theme, color, associatedWords) {
             var button = document.createElement("button");
-            button.textContent = theme;
             button.classList.add("theme-button");
-            button.style.backgroundColor = color;
+            button.style.backgroundColor = color; // Set background color
+
+            // Append theme and associated words
+            button.textContent = theme + ": " + associatedWords.join(", ");
+
             return button;
         }
 
