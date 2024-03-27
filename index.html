@@ -23,7 +23,7 @@
         }
 
         button {
-            padding: 10px 20px;
+            padding: 20px 20px;
             margin: 5px;
             font-size: 16px;
             cursor: pointer;
@@ -160,12 +160,17 @@
                     var shuffledButtons = shuffledWords.map(function (word) {
                         return createButton(word);
                     });
+
+                    // Shuffle the buttons before appending to the grid
+                    shuffledButtons = shuffleArray(shuffledButtons);
+
                     shuffledButtons.forEach(function (button) {
                         buttonGrid.appendChild(button);
                     });
                 }
             });
         }
+
 
 
 
@@ -294,9 +299,6 @@
 
             return array;
         }
-
-
-        wordPairs = shuffleArray(wordPairs);
 
         // Call initializeGame to start the game
         initializeGame();
