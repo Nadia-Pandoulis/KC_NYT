@@ -52,7 +52,7 @@
             cursor: pointer;
             font-family: 'ITC Franklin Gothic LT Demi', sans-serif;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             outline: none;
             background-color: white;
             color: black;
@@ -147,21 +147,24 @@
                 return !successfulPairs.includes(pair);
             });
 
+            var currentRow = document.createElement("div"); // Create a new row
+            currentRow.classList.add("button-grid");
+            buttonGrid.appendChild(currentRow);
+
             // Create merge buttons for successful pairs
             successfulPairs.forEach(function (wordPair) {
                 var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
 
-                // Check if merge button has already been created
                 if (mergeButtonCreated) {
                     // Create a new row for the merge button
-                    var newRow = document.createElement("div");
-                    newRow.classList.add("button-grid");
-                    buttonGrid.appendChild(newRow);
-                    newRow.appendChild(mergeButton);
+                    currentRow = document.createElement("div");
+                    currentRow.classList.add("button-grid");
+                    buttonGrid.appendChild(currentRow);
                 } else {
-                    buttonGrid.insertBefore(mergeButton, buttonGrid.firstChild); // Insert merged buttons at the beginning
-                    mergeButtonCreated = true; // Set mergeButtonCreated to true
+                    mergeButtonCreated = true; // Set mergeButtonCreated to true after the first merge button is created
                 }
+
+                currentRow.appendChild(mergeButton); // Append merge button to the current row
             });
 
             // Create buttons for remaining pairs
@@ -177,11 +180,12 @@
                     shuffledButtons = shuffleArray(shuffledButtons);
 
                     shuffledButtons.forEach(function (button) {
-                        buttonGrid.appendChild(button);
+                        currentRow.appendChild(button); // Append button to the current row
                     });
                 }
             });
         }
+
 
 
         function createButton(word) {
