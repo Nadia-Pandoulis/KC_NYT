@@ -175,6 +175,7 @@
 
         // Initialize game
         function initializeGame() {
+            shuffleWords();
             displayWords();
             submitButton.addEventListener("click", submitAnswer);
             deselectAllButton.addEventListener("click", deselectAll);
