@@ -215,8 +215,8 @@
                 var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
                 currentRow.appendChild(mergeButton); // Append merge button to the current row
                 mergeButtonCreated = true; // Set mergeButtonCreated to true after the first merge button is created
-                shuffleWords(); // shuffle words to fix layout and make sure wordpairs are not in line
             });
+            shuffleWords(); // shuffle words to fix layout and make sure wordpairs are not in line
 
             // Create buttons for remaining pairs
             remainingPairs.forEach(function (wordPair) {
