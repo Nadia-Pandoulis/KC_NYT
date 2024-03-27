@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Association Game</title>
+    <title>Kane Connections</title>
+    <h2> Create four groups of four!</h2>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,6 +16,9 @@
             margin: 5px;
             font-size: 16px;
             cursor: pointer;
+            font-family: 'ITC Franklin Gothic LT Demi', sans-serif;
+            text-transform: uppercase; /* Convert text to uppercase */
+            background-color: #EFEFE6; /* Set background color */
         }
 
         .button-grid {
@@ -40,6 +44,10 @@
             grid-column: 1 / span 4;
             background-color: lightblue;
         }
+
+        #lives-display {
+            font-family: "Monotype News Gothic Paneuropean Regular", sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -50,7 +58,7 @@
         <button id="deselect-all">Deselect All</button>
         <button id="shuffle">Shuffle</button>
         <p id="result"></p>
-        <div id="lives-display">Lives: <span id="lives">● ● ● ●</span></div>
+        <div id="lives-display">Mistakes Remaining: <span id="lives">● ● ● ●</span></div>
     </div>
 
     <script>
@@ -113,7 +121,7 @@
             var button = document.createElement("button");
             button.textContent = theme;
             button.classList.add("theme-button");
-            button.style.backgroundColor = color; // Set background color
+            button.style.backgroundColor = color; 
             return button;
         }
 
