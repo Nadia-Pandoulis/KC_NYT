@@ -111,25 +111,27 @@
             border-radius: 10px;
             border: none;
             outline: none;
-            height: 50px;
-            flex-direction: column;
-            display: flex;
-            margin-top: 5px;
-            width: 100%;
+            height: auto; /* Change height to auto to accommodate content */
             position: relative;
+            width: 100%;
             text-align: center;
-            justify-content: center;
         }
 
         .theme-button strong {
-            position: absolute; /* Position the theme text absolutely */
-            top: 50%; /* Move the text 50% from the top */
-            left: 50%; /* Move the text 50% from the left */
-            transform: translate(-50%, -50%); /* Center the text both horizontally and vertically */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
+
         .theme-button div {
-            margin-top: 10px; /* Adjust margin to separate the lines */
+            margin-top: 20px; /* Adjust margin to separate the lines */
             text-align: center; /* Center the associated words */
+            width: 100%; /* Ensure the associated words span the entire width */
+        }
+
+        .theme-button div span {
+            display: block; /* Make each associated word appear on a separate line */
         }
         
         #lives-display {
