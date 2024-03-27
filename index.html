@@ -208,10 +208,13 @@
             }
             if (selectedWords.length === 4) {
                 submitButton.removeAttribute("disabled");
+                submitButton.classList.add("selected"); // Add the 'selected' class to the submit button
             } else {
                 submitButton.setAttribute("disabled", "disabled");
+                submitButton.classList.remove("selected"); // Remove the 'selected' class from the submit button
             }
         }
+
 
 
         function submitAnswer() {
