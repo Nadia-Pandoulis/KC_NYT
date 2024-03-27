@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kane Connections</title>
-    <h2> Create four groups of four!</h2>
     <style>
+        h1 {
+            font-family: "Palo Slab Condensed Bold", sans-serif;
+        }
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -17,8 +19,8 @@
             font-size: 16px;
             cursor: pointer;
             font-family: 'ITC Franklin Gothic LT Demi', sans-serif;
-            text-transform: uppercase; /* Convert text to uppercase */
-            background-color: #EFEFE6; /* Set background color */
+            text-transform: uppercase; 
+            background-color: #EFEFE6; 
         }
 
         .button-grid {
@@ -50,12 +52,14 @@
         }
     </style>
 </head>
+
 <body>
-    <h1>Word Association Game</h1>
+    <h1> Kane Connections </h1>
+    <h2> Create four groups of four! </h2>
     <div id="game-container">
         <div id="button-grid" class="button-grid"></div>
         <button id="submit" disabled>Submit</button>
-        <button id="deselect-all">Deselect All</button>
+        <button id="deselect-all" disabled>Deselect All</button>
         <button id="shuffle">Shuffle</button>
         <p id="result"></p>
         <div id="lives-display">Mistakes Remaining: <span id="lives">● ● ● ●</span></div>
@@ -121,7 +125,7 @@
             var button = document.createElement("button");
             button.textContent = theme;
             button.classList.add("theme-button");
-            button.style.backgroundColor = color; 
+            button.style.backgroundColor = color;
             return button;
         }
 
@@ -130,8 +134,12 @@
             var word = button.textContent;
             if (button.classList.contains("selected")) {
                 selectedWords.push(word);
+                deselectAllButton.removeAttribute("disabled"); // Enable deselect button
             } else {
                 selectedWords = selectedWords.filter(w => w !== word);
+                if (selectedWords.length === 0) {
+                    deselectAllButton.setAttribute("disabled", "disabled"); // Disable deselect button
+                }
             }
             if (selectedWords.length === 4) {
                 submitButton.removeAttribute("disabled");
@@ -139,6 +147,7 @@
                 submitButton.setAttribute("disabled", "disabled");
             }
         }
+
 
         function submitAnswer() {
             var currentPair = findWordPair(selectedWords[0]);
@@ -197,7 +206,7 @@
             var currentIndex = array.length, temporaryValue, randomIndex;
 
             // While there remain elements to shuffle...
-            while (0 !== currentIndex) {
+            while (currentIndex !== 0) {
 
                 // Pick a remaining element...
                 randomIndex = Math.floor(Math.random() * currentIndex);
@@ -211,6 +220,9 @@
 
             return array;
         }
+
+
+        wordPairs = shuffleArray(wordPairs);
 
         // Call initializeGame to start the game
         initializeGame();
