@@ -23,7 +23,13 @@
         }
         h1 {
             font-family: 'KC', sans-serif;
+            display: inline-block;
         }
+        .date-text {
+            font-family: 'WordlistFont', sans-serif; /* Set the font for the additional text */
+            display: inline-block; /* Ensure it appears next to the h1 */
+        }
+
         h2 {
             font-family: "h2+livesFont", sans-serif;
             text-align: center;
@@ -108,9 +114,9 @@
             background-color: lightgrey;
         }
 
-            .grouped button {
-                background-color: inherit;
-            }
+        .grouped button {
+            background-color: inherit;
+        }
 
         .theme-button {
             grid-column: 1 / span 4;
@@ -157,6 +163,7 @@
 
 <body>
     <h1> Kane Connections </h1>
+    <div class="date-text">April 12, 2024</div>
     <h2> Create four groups of four! </h2>
     <div id="game-container">
         <div id="button-grid" class="button-grid"></div>
