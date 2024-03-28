@@ -10,6 +10,10 @@
             src: url('PaulSlab-Bold-Trail.otf') format('opentype');
         }
         @font-face {
+            font-family: 'h2+livesFont';
+            src: url('TraditionSansXLight.ttf') format('opentype');
+        }
+        @font-face {
             font-family: 'ButtonFont';
             src: url('ITC Franklin Gothic LT Demi Regular.otf') format('opentype');
         }
@@ -21,7 +25,7 @@
             font-family: 'KC', sans-serif;
         }
         h2 {
-            font-family: Arial, sans-serif;
+            font-family: "h2+livesFont", sans-serif;
             text-align: center;
         }
         body {
@@ -56,6 +60,7 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 5px;
             margin-top: 20px;
+            margin-bottom: 20px;
             border-radius: 10px;
             max-width: 800px; /* Adjust the max-width according to your preference */
             margin: 0 auto; /* Center the grid horizontally */
@@ -66,6 +71,8 @@
         .button-action {
             padding: 10px 20px;
             margin: 5px;
+            margin-top: 20px;
+            margin-bottom: 20px;
             font-size: 16px;
             cursor: pointer;
             font-family: 'ButtonFont', sans-serif;
@@ -134,9 +141,11 @@
             margin-bottom: 5px; /* Adjust margin to create space between associated words */
         }
 
-        
+
         #lives-display {
-            font-family: "Monotype News Gothic Paneuropean Regular", sans-serif;
+            font-family: "h2+livesFont", sans-serif;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
