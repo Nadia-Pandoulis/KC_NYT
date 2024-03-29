@@ -154,12 +154,17 @@
             border: none;
             outline: none;
             height: auto;
+            pointer-events: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             width: 100%; /* Theme buttons inherit width from grid columns */
+        }
+
+        .theme-button button {
+            pointer-events: auto; /* Re-enable pointer events on inner buttons */
         }
 
         /* Additional styling for theme button text */
