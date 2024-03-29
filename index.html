@@ -66,13 +66,14 @@
         }
 
         .button-grid {
-            display: grid; /* Change display property to flex */
+            display: grid; /* Change display property to grid */
+            grid-template-columns: repeat(4, 1fr); /* Create 4 columns with equal width */
             gap: 0; /* Set gap to 0 to eliminate spacing between buttons */
             margin-top: 20px;
             border-radius: 10px;
             max-width: 800px;
             margin: 0 auto;
-            justify-content: center; 
+            justify-content: center;
             align-items: center;
         }
 
@@ -88,6 +89,8 @@
             outline: none;
             text-align: center;
         }
+
+
 
         .button-action {
             padding: 10px 20px;
