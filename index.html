@@ -66,14 +66,30 @@
         }
 
         .button-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
+            display: flex; /* Change display property to flex */
+            flex-wrap: wrap; /* Allow flex items to wrap */
+            gap: 0; /* Set gap to 0 to eliminate spacing between buttons */
+            margin-top: 20px;
             border-radius: 10px;
-            max-width: 800px; /* Adjust the max-width according to your preference */
-            margin: 0 auto; /* Center the grid horizontally */
-            justify-content: center; /* Center horizontally */
+            max-width: 800px;
+            margin: 0 auto;
+            justify-content: flex-start; /* Align buttons to the left */
             align-items: center;
+        }
+
+        .button-grid button {
+            flex: 1 0 calc(25% - 3px); /* Make each button take up equal space with adjusted width */
+            /* You can adjust the width and padding of the buttons as needed */
+            padding: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'ButtonFont', sans-serif;
+            text-transform: uppercase;
+            background-color: #EFEFE6;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            text-align: center;
         }
 
         .button-action {
