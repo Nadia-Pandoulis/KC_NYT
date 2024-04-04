@@ -257,11 +257,11 @@
 
                 // Create merge buttons for successful pairs
                 successfulPairs.forEach(function (wordPair, index) {
-                    if (index % 4 === 0) {
+                    /*if (index % 4 === 0) {
                         currentRow = document.createElement("div"); // Create a new row for every 4th merge button
                         currentRow.classList.add("button-grid");
                         buttonGrid.appendChild(currentRow);
-                    }
+                    }*/
 
                     var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
                     currentRow.appendChild(mergeButton); // Append merge button to the current row
