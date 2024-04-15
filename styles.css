@@ -47,7 +47,6 @@ body {
     margin: 0 auto;
 }
 
-
 .button-grid {
     display: grid;
     grid-template-columns: repeat(4, 200px);
@@ -110,14 +109,6 @@ body {
     background-color: #5a594e;
     color: white;
 }
-
-.grouped {
-    background-color: lightgrey;
-}
-
-    .grouped button {
-        background-color: inherit;
-    }
 
 .theme-button {
     grid-column: 1 / span 4;
