@@ -20,14 +20,7 @@ function initializeGame() {
     displayWords();
     shuffleWords();
 
-    var numColumns = 4;
-    var buttonGridWidth = (100 / numColumns) * numColumns + '%';
-    buttonGrid.style.width = buttonGridWidth;
-
     var mergeButtons = document.querySelectorAll('.theme-button');
-    mergeButtons.forEach(function (button) {
-        button.style.width = buttonGridWidth;
-    });
 
     submitButton.addEventListener("click", submitAnswer);
     deselectAllButton.addEventListener("click", deselectAll);
