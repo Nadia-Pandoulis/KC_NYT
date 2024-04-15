@@ -66,8 +66,8 @@ button {
 
 .button-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 0px;
+    grid-template-columns: 200px 200px 200px 200px;
+    grid-template-columns: 100px 100px 100px 100px;
     border-radius: 10px;
     max-width: 800px;
     justify-content: center;
@@ -174,3 +174,15 @@ button {
         color: #5a594e;
         letter-spacing: 2px;
     }
+
+.start_screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #b3a3fb;
+    color: black;
+    text-align: centre;
+    line-height: 90vh;
+}
