@@ -204,7 +204,7 @@ body {
 }
 
 .start-date-text {
-    font-size: 24px;
+    font-size: 16px;
     margin-top: 50px;
     font-family: 'WordlistFont', sans-serif;
     z-index: 3;
@@ -212,7 +212,7 @@ body {
 }
 
 .by-nads {
-    font-size: 24px;
+    font-size: 12px;
     margin-top: 10px;
     font-family: 'h2+livesFont';
     z-index: 4;
