@@ -144,31 +144,28 @@ body {
     margin: 10px 0; 
 }
 
-
 .start_background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background: #b3a3fb; 
-    opacity: 1; 
-    transition: opacity 0.5s ease; 
+    background: #b3a3fb;
 }
+
 
 .start_screen {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0; /* Initially fully transparent */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #b3a3fb;
+    color: black;
+    text-align: center;
     animation: floatIn 1.5s ease-in-out forwards;
 }
 
-    .start_screen.show {
-        opacity: 1; 
-    }
- 
 .logo {
     width: 100px; 
     margin-top: 50px; 

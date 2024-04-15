@@ -19,6 +19,9 @@ var livesDisplay = document.getElementById("lives");
 function startGame() {
     var startScreen = document.getElementById("start_screen");
     startScreen.style.display = "none"; 
+
+    var startBackground = document.getElementById("start_screen");
+    startBackground.style.display = "none"; 
     initializeGame();
 }
 
