@@ -9,23 +9,28 @@
             font-family: 'KC';
             src: url('PaulSlab-Bold-Trail.otf') format('opentype');
         }
+
         @font-face {
             font-family: 'h2+livesFont';
             src: url('TraditionSansXLight.ttf') format('opentype');
         }
+
         @font-face {
             font-family: 'ButtonFont';
             src: url('ITC Franklin Gothic LT Demi Regular.otf') format('opentype');
         }
+
         @font-face {
             font-family: 'WordlistFont';
             src: url('Franklin Gothic Book Regular.ttf') format('opentype');
         }
+
         h1 {
             font-family: 'KC', sans-serif;
             display: inline-block;
             margin-right: 15px;
         }
+
         .date-text {
             font-family: 'WordlistFont', sans-serif; /* Set the font for the additional text */
             font-size: 24px;
@@ -38,11 +43,12 @@
             text-align: center;
             letter-spacing: 1px;
         }
+
         body {
             font-family: Arial, sans-serif;
             text-align: center;
         }
-        
+
         #game-container {
             max-width: 800px; /* Adjust the max-width according to your preference */
             margin: 0 auto; /* Center the container horizontally */
@@ -68,35 +74,29 @@
         .button-grid {
             display: grid; /* Change display property to grid */
             grid-template-columns: repeat(4, 1fr); /* Create 4 columns with equal width */
-            gap: 0; /* Set gap to 0 to eliminate spacing between buttons */
-            margin-top: 20px;
-            margin-bottom: 20px;
+            column-gap: 0px;
             border-radius: 10px;
             max-width: 800px;
-            margin: 0 auto;
             justify-content: center;
             align-items: center;
         }
 
-        .button-grid button {
-            padding: 15px;
-            font-size: 18px;
-            cursor: pointer;
-            font-family: 'ButtonFont', sans-serif;
-            text-transform: uppercase;
-            background-color: #EFEFE6;
-            border-radius: 10px;
-            border: none;
-            outline: none;
-            text-align: center;
-            width: 150px; /* Set fixed width */
-            height: 50px; /* Set fixed height */
-        }
+            .button-grid button {
+                font-size: 18px;
+                cursor: pointer;
+                font-family: 'ButtonFont', sans-serif;
+                text-transform: uppercase;
+                background-color: #EFEFE6;
+                border-radius: 10px;
+                border: none;
+                outline: none;
+                text-align: center;
+            }
 
-        .button-grid button.selected {
-            background-color: #5a594e; /* Set background color for selected buttons */
-            color: white; /* Set text color for selected buttons */
-        }
+                .button-grid button.selected {
+                    background-color: #5a594e; /* Set background color for selected buttons */
+                    color: white; /* Set text color for selected buttons */
+                }
 
 
         .button-action {
@@ -118,10 +118,10 @@
             justify-content: center;
         }
 
-        /* Styles for disabled state */
-        .button-action:disabled {
-            opacity: 0.5;
-        }
+            /* Styles for disabled state */
+            .button-action:disabled {
+                opacity: 0.5;
+            }
 
         /* Styles for selected submit button */
         #submit.selected {
@@ -131,7 +131,7 @@
         }
 
         .selected {
-            background-color: #5a594e; 
+            background-color: #5a594e;
             color: white;
         }
 
@@ -139,48 +139,38 @@
             background-color: lightgrey;
         }
 
-        .grouped button {
-            background-color: inherit;
-        }
+            .grouped button {
+                background-color: inherit;
+            }
 
-        .theme-buttons-container {
-            grid-column: 1 / span 4; /* Ensure theme buttons span all columns */
-        }
-
-        /* Adjust theme button styles */
         .theme-button {
+            grid-column: 1 / span 4;
             background-color: lightblue;
             border-radius: 10px;
             border: none;
             outline: none;
-            height: auto;
-            pointer-events: none;
+            height: auto; /* Change height to auto to accommodate content */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            width: 100%; /* Theme buttons inherit width from grid columns */
+            width: 800px;
         }
 
-        .theme-button button {
-            pointer-events: auto; /* Re-enable pointer events on inner buttons */
-        }
+            .theme-button strong {
+                margin-bottom: 10px; /* Adjust margin to create space between theme text and associated words */
+            }
 
-        /* Additional styling for theme button text */
-        .theme-button strong {
-            margin-bottom: 10px; /* Adjust margin to create space between theme text and associated words */
-        }
+            .theme-button div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
 
-        .theme-button div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .theme-button div span {
-            margin-bottom: 5px; /* Adjust margin to create space between associated words */
-        }
+                .theme-button div span {
+                    margin-bottom: 5px; /* Adjust margin to create space between associated words */
+                }
 
 
         #lives-display {
@@ -190,11 +180,11 @@
             margin-bottom: 10px;
         }
 
-        #lives-display #lives {
-            font-size: 40px; /* Increase the font size of the dots */
-            color: #5a594e; /* Set the color of the dots */
-            letter-spacing: 2px;
-        }
+            #lives-display #lives {
+                font-size: 40px; /* Increase the font size of the dots */
+                color: #5a594e; /* Set the color of the dots */
+                letter-spacing: 2px;
+            }
     </style>
 </head>
 
@@ -204,239 +194,246 @@
     <h2> Create four groups of four! </h2>
     <div id="game-container">
         <div id="button-grid" class="button-grid"></div>
-        <div class="theme-buttons-container">
-            <div id="lives-display">Mistakes remaining: <span id="lives">● ● ● ●</span></div>
-            <button id="shuffle" class="button-action">Shuffle</button>
-            <button id="deselect-all" class="button-action" disabled style="width: 200px;">Deselect All</button>
-            <button id="submit" class="button-action" disabled>Submit</button>
-            <p id="result"></p>
+        <div id="lives-display">Mistakes remaining: <span id="lives">● ● ● ●</span></div>
+        <button id="shuffle" class="button-action">Shuffle</button>
+        <button id="deselect-all" class="button-action" disabled style="width: 200px;">Deselect All</button>
+        <button id="submit" class="button-action" disabled>Submit</button>
+        <p id="result"></p>
 
-        </div>
+    </div>
 
-        <script>
-            var wordPairs = [
-                { theme: "our past date locations", associatedWords: ["movies", "bowling", "sushi", "restaurant"], color: "#f9da6d" },
-                { theme: "tree", associatedWords: ["leaf", "branch", "bark", "wood"], color: "#a4c45c" },
-                { theme: "car", associatedWords: ["drive", "engine", "road", "wheel"], color: "#b5c3e7" },
-                { theme: "yo", associatedWords: ["huh", "bruh", "bro", "pal"], color: "#bb84c2" }
-            ];
+    <script>
+        var wordPairs = [
+            { theme: "our past date locations", associatedWords: ["movies", "bowling", "sushi", "restaurant"], color: "#f9da6d" },
+            { theme: "tree", associatedWords: ["leaf", "branch", "bark", "wood"], color: "#a4c45c" },
+            { theme: "car", associatedWords: ["drive", "engine", "road", "wheel"], color: "#b5c3e7" },
+            { theme: "yo", associatedWords: ["huh", "bruh", "bro", "pal"], color: "#bb84c2" }
+        ];
 
-            var lives = 4;
-            var selectedWords = [];
-            var successfulPairs = [];
+        var lives = 4;
+        var selectedWords = [];
+        var successfulPairs = [];
 
-            var buttonGrid = document.getElementById("button-grid");
-            var submitButton = document.getElementById("submit");
-            var deselectAllButton = document.getElementById("deselect-all");
-            var shuffleButton = document.getElementById("shuffle");
-            var resultDisplay = document.getElementById("result");
-            var livesDisplay = document.getElementById("lives");
+        var buttonGrid = document.getElementById("button-grid");
+        var submitButton = document.getElementById("submit");
+        var deselectAllButton = document.getElementById("deselect-all");
+        var shuffleButton = document.getElementById("shuffle");
+        var resultDisplay = document.getElementById("result");
+        var livesDisplay = document.getElementById("lives");
 
-            // Initialize game
-            function initializeGame() {
+        // Initialize game
+        function initializeGame() {
+            displayWords();
+            shuffleWords();
+
+            var numColumns = 4; // Adjust this value based on the number of columns in your grid
+            var buttonGridWidth = (100 / numColumns) * numColumns + '%'; // Calculate the width of the button grid
+            buttonGrid.style.width = buttonGridWidth; // Set the width of the button grid
+
+            // Set the width of the merge buttons to match the initial button grid width
+            var mergeButtons = document.querySelectorAll('.theme-button');
+            mergeButtons.forEach(function (button) {
+                button.style.width = buttonGridWidth;
+            });
+
+            submitButton.addEventListener("click", submitAnswer);
+            deselectAllButton.addEventListener("click", deselectAll);
+            shuffleButton.addEventListener("click", shuffleWords);
+        }
+
+        function displayWords() {
+            buttonGrid.innerHTML = ""; // Clear previous buttons
+            var mergeButtonCreated = false; // Variable to track if merge button has been created
+
+            // Filter out successful pairs
+            var remainingPairs = wordPairs.filter(function (pair) {
+                return !successfulPairs.includes(pair);
+            });
+
+            var currentRow; // Declare currentRow variable outside the loop
+
+            // Create merge buttons for successful pairs
+            successfulPairs.forEach(function (wordPair, index) {
+                if (index % 4 === 0) {
+                    currentRow = document.createElement("div"); // Create a new row for every 4th merge button
+                    currentRow.classList.add("button-grid");
+                    buttonGrid.appendChild(currentRow);
+                }
+
+                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
+                currentRow.appendChild(mergeButton); // Append merge button to the current row
+                mergeButtonCreated = true; // Set mergeButtonCreated to true after the first merge button is created
+            });
+
+            // Create buttons for remaining pairs
+            remainingPairs.forEach(function (wordPair) {
+                var groupIndex = successfulPairs.indexOf(wordPair);
+                if (groupIndex === -1) {
+                    var shuffledWords = shuffleArray(wordPair.associatedWords);
+                    var shuffledButtons = shuffledWords.map(function (word) {
+                        return createButton(word);
+                    });
+
+                    shuffledButtons.forEach(function (button) {
+                        if (!mergeButtonCreated) {
+                            currentRow = document.createElement("div"); // Create a new row if no merge button is created
+                            currentRow.classList.add("button-grid");
+                            buttonGrid.appendChild(currentRow);
+                            mergeButtonCreated = true;
+                        }
+                        currentRow.appendChild(button); // Append button to the current row
+                    });
+                }
+            });
+            shuffleWords();
+        }
+
+
+        function createButton(word) {
+            var button = document.createElement("button");
+            button.textContent = word;
+            button.addEventListener("click", function () {
+                toggleSelection(this);
+            });
+            return button;
+        }
+
+        function createMergeButton(theme, color, associatedWords) {
+            var button = document.createElement("button");
+            button.classList.add("theme-button");
+            button.style.backgroundColor = color; // Set background color
+
+            // Create strong element for theme title
+            var themeTitle = document.createElement("strong");
+            themeTitle.textContent = theme;
+            button.appendChild(themeTitle);
+
+            // Append associated words as separate div element with a different font family
+            var associatedWordsDiv = document.createElement("div");
+            associatedWordsDiv.textContent = associatedWords.join(", ");
+            associatedWordsDiv.style.fontFamily = "'WordlistFont', sans-serif"; // Replace 'YourCustomFont' with your desired font family
+            button.appendChild(associatedWordsDiv);
+
+            return button;
+        }
+
+
+        function toggleSelection(button) {
+            // Check if there are already four selected buttons
+            if (selectedWords.length === 4 && !button.classList.contains("selected")) {
+                return; // Do nothing if already four selected and trying to select another
+            }
+
+            button.classList.toggle("selected");
+            var word = button.textContent;
+            if (button.classList.contains("selected")) {
+                selectedWords.push(word);
+                deselectAllButton.removeAttribute("disabled"); // Enable deselect button
+            } else {
+                selectedWords = selectedWords.filter(w => w !== word);
+                if (selectedWords.length === 0) {
+                    deselectAllButton.setAttribute("disabled", "disabled"); // Disable deselect button
+                }
+            }
+            if (selectedWords.length === 4) {
+                submitButton.removeAttribute("disabled");
+                submitButton.classList.add("selected"); // Add the 'selected' class to the submit button
+            } else {
+                submitButton.setAttribute("disabled", "disabled");
+                submitButton.classList.remove("selected"); // Remove the 'selected' class from the submit button
+            }
+        }
+
+
+
+        function submitAnswer() {
+            var currentPair = findWordPair(selectedWords[0]);
+            if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
+                successfulPairs.push(currentPair);
                 displayWords();
-                shuffleWords();
+            } else {
+                updateLives(-1);
+            }
+            selectedWords = [];
+            submitButton.classList.remove("selected");
+            submitButton.setAttribute("disabled", "disabled");
+        }
 
-                var numColumns = 4; // Adjust this value based on the number of columns in your grid
+        function gameOver() {
+            alert("Game Over!");
+            // You can add additional game over logic here
+        }
 
-                submitButton.addEventListener("click", submitAnswer);
-                deselectAllButton.addEventListener("click", deselectAll);
-                shuffleButton.addEventListener("click", shuffleWords);
+        function findWordPair(word) {
+            return wordPairs.find(pair => pair.associatedWords.includes(word));
+        }
+
+        function updateLives(change) {
+            lives += change;
+            var livesText = "";
+            for (var i = 0; i < lives; i++) {
+                livesText += "● ";
+            }
+            livesDisplay.textContent = livesText;
+            if (lives === 0) {
+                gameOver();
+            }
+        }
+
+
+        function deselectAll() {
+            var buttons = document.querySelectorAll(".selected");
+            buttons.forEach(function (button) {
+                button.classList.remove("selected");
+            });
+            selectedWords = [];
+            submitButton.setAttribute("disabled", "disabled");
+        }
+
+        function shuffleWords() {
+            // Get regular buttons and merge buttons separately
+            var regularButtons = Array.from(document.querySelectorAll(".button-grid button:not(.theme-button)"));
+            var mergeButtons = Array.from(document.querySelectorAll('.theme-button'));
+
+            // Shuffle regular buttons
+            var shuffledRegularButtons = shuffleArray(regularButtons);
+
+            // Clear the button grid
+            buttonGrid.innerHTML = "";
+
+            // Append merge buttons back to the button grid
+            mergeButtons.forEach(function (button) {
+                buttonGrid.appendChild(button);
+            });
+
+            // Shuffle and append regular buttons
+            shuffledRegularButtons.forEach(function (button) {
+                buttonGrid.appendChild(button);
+            });
+        }
+
+
+        function shuffleArray(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+
+            // While there remain elements to shuffle...
+            while (currentIndex !== 0) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
             }
 
-            function displayWords() {
-                buttonGrid.innerHTML = ""; // Clear previous buttons
-                var mergeButtonCreated = false; // Variable to track if merge button has been created
+            return array;
+        }
 
-                // Filter out successful pairs
-                var remainingPairs = wordPairs.filter(function (pair) {
-                    return !successfulPairs.includes(pair);
-                });
-
-                var currentRow; // Declare currentRow variable outside the loop
-
-                // Create merge buttons for successful pairs
-                successfulPairs.forEach(function (wordPair, index) {
-                    /*if (index % 4 === 0) {
-                        currentRow = document.createElement("div"); // Create a new row for every 4th merge button
-                        currentRow.classList.add("button-grid");
-                        buttonGrid.appendChild(currentRow);
-                    }*/
-
-                    var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
-                    currentRow.appendChild(mergeButton); // Append merge button to the current row
-                    mergeButtonCreated = true; // Set mergeButtonCreated to true after the first merge button is created
-                });
-
-                // Create buttons for remaining pairs
-                remainingPairs.forEach(function (wordPair) {
-                    var groupIndex = successfulPairs.indexOf(wordPair);
-                    if (groupIndex === -1) {
-                        var shuffledWords = shuffleArray(wordPair.associatedWords);
-                        var shuffledButtons = shuffledWords.map(function (word) {
-                            return createButton(word);
-                        });
-
-                        shuffledButtons.forEach(function (button) {
-                            if (!mergeButtonCreated) {
-                                currentRow = document.createElement("div"); // Create a new row if no merge button is created
-                                currentRow.classList.add("button-grid");
-                                buttonGrid.appendChild(currentRow);
-                                mergeButtonCreated = true;
-                            }
-                            currentRow.appendChild(button); // Append button to the current row
-                        });
-                    }
-                });
-                shuffleWords();
-            }
-
-
-            function createButton(word) {
-                var button = document.createElement("button");
-                button.textContent = word;
-                button.addEventListener("click", function () {
-                    toggleSelection(this);
-                });
-                return button;
-            }
-
-            function createMergeButton(theme, color, associatedWords) {
-                var button = document.createElement("button");
-                button.classList.add("theme-button");
-                button.style.backgroundColor = color; // Set background color
-
-                // Create strong element for theme title
-                var themeTitle = document.createElement("strong");
-                themeTitle.textContent = theme;
-                button.appendChild(themeTitle);
-
-                // Append associated words as separate div element with a different font family
-                var associatedWordsDiv = document.createElement("div");
-                associatedWordsDiv.textContent = associatedWords.join(", ");
-                associatedWordsDiv.style.fontFamily = "'WordlistFont', sans-serif"; // Replace 'YourCustomFont' with your desired font family
-                button.appendChild(associatedWordsDiv);
-
-                return button;
-            }
-
-
-            function toggleSelection(button) {
-                // Check if there are already four selected buttons
-                if (selectedWords.length === 4 && !button.classList.contains("selected")) {
-                    return; // Do nothing if already four selected and trying to select another
-                }
-
-                button.classList.toggle("selected");
-                var word = button.textContent;
-                if (button.classList.contains("selected")) {
-                    selectedWords.push(word);
-                    deselectAllButton.removeAttribute("disabled"); // Enable deselect button
-                } else {
-                    selectedWords = selectedWords.filter(w => w !== word);
-                    if (selectedWords.length === 0) {
-                        deselectAllButton.setAttribute("disabled", "disabled"); // Disable deselect button
-                    }
-                }
-                if (selectedWords.length === 4) {
-                    submitButton.removeAttribute("disabled");
-                    submitButton.classList.add("selected"); // Add the 'selected' class to the submit button
-                } else {
-                    submitButton.setAttribute("disabled", "disabled");
-                    submitButton.classList.remove("selected"); // Remove the 'selected' class from the submit button
-                }
-            }
-
-
-
-            function submitAnswer() {
-                var currentPair = findWordPair(selectedWords[0]);
-                if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
-                    successfulPairs.push(currentPair);
-                    displayWords();
-                } else {
-                    updateLives(-1);
-                }
-                selectedWords = [];
-                submitButton.classList.remove("selected");
-                submitButton.setAttribute("disabled", "disabled");
-            }
-
-            function gameOver() {
-                alert("Game Over!");
-                // You can add additional game over logic here
-            }
-
-            function findWordPair(word) {
-                return wordPairs.find(pair => pair.associatedWords.includes(word));
-            }
-
-            function updateLives(change) {
-                lives += change;
-                var livesText = "";
-                for (var i = 0; i < lives; i++) {
-                    livesText += "● ";
-                }
-                livesDisplay.textContent = livesText;
-                if (lives === 0) {
-                    gameOver();
-                }
-            }
-
-
-            function deselectAll() {
-                var buttons = document.querySelectorAll(".selected");
-                buttons.forEach(function (button) {
-                    button.classList.remove("selected");
-                });
-                selectedWords = [];
-                submitButton.setAttribute("disabled", "disabled");
-            }
-
-            function shuffleWords() {
-                // Get regular buttons and merge buttons separately
-                var regularButtons = Array.from(document.querySelectorAll(".button-grid button:not(.theme-button)"));
-                var mergeButtons = Array.from(document.querySelectorAll('.theme-button'));
-
-                // Shuffle regular buttons
-                var shuffledRegularButtons = shuffleArray(regularButtons);
-
-                // Clear the button grid
-                buttonGrid.innerHTML = "";
-
-                // Append merge buttons back to the button grid
-                mergeButtons.forEach(function (button) {
-                    buttonGrid.appendChild(button);
-                });
-
-                // Shuffle and append regular buttons
-                shuffledRegularButtons.forEach(function (button) {
-                    buttonGrid.appendChild(button);
-                });
-            }
-
-
-            function shuffleArray(array) {
-                var currentIndex = array.length, temporaryValue, randomIndex;
-
-                // While there remain elements to shuffle...
-                while (currentIndex !== 0) {
-
-                    // Pick a remaining element...
-                    randomIndex = Math.floor(Math.random() * currentIndex);
-                    currentIndex -= 1;
-
-                    // And swap it with the current element.
-                    temporaryValue = array[currentIndex];
-                    array[currentIndex] = array[randomIndex];
-                    array[randomIndex] = temporaryValue;
-                }
-
-                return array;
-            }
-
-            // Call initializeGame to start the game
-            initializeGame();
-        </script>
+        // Call initializeGame to start the game
+        initializeGame();
+    </script>
 </body>
 </html>
