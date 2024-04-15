@@ -111,6 +111,8 @@ body {
 
 .theme-button {
     grid-column: 1 / span 4;
+    height: 100%;
+    width: 100%;
     border-radius: 10px;
     border: none;
     outline: none;
