@@ -108,7 +108,7 @@ body {
 }
 
 .theme-button {
-    grid-column: 1 / -1;
+    grid-column: 1 / span 4;
     grid-row: auto;
     border-radius: 10px;
     border: none;
