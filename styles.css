@@ -108,8 +108,8 @@ body {
 }
 
 .theme-button {
-    /*grid-column: 1 / -1;
-    grid-row: auto;*/
+    grid-column: 1 / -1;
+    grid-row: auto;
     border-radius: 10px;
     border: none;
     outline: none;
