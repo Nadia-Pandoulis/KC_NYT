@@ -165,12 +165,16 @@ body {
     font-size: 48px;
     margin-top: 20px;
     font-family: 'KC', sans-serif;
+    z-index: 0;
+    position: relative;
 }
 
 .subtitle {
     font-size: 24px;
     margin-top: 10px;
     font-family: 'h2+livesFont';
+    z-index: 1;
+    position: relative;
 }
 
 .start_button {
@@ -183,18 +187,24 @@ body {
     cursor: pointer;
     margin-top: 30px;
     font-family: 'WordlistFont', sans-serif;
+    z-index: 2;
+    position: relative;
 }
 
 .start-date-text {
     font-size: 24px;
     margin-top: 200px;
     font-family: 'WordlistFont', sans-serif;
+    z-index: 3;
+    position: relative;
 }
 
 .by-nads {
     font-size: 24px;
     margin-top: 10px;
     font-family: 'h2+livesFont';
+    z-index: 4;
+    position: relative;
 }
 
 @keyframes floatIn {
