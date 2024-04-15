@@ -34,8 +34,8 @@ h2 {
     font-family: "h2+livesFont", sans-serif;
     font-size: 17px;
     text-align: center;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+    margin-bottom: 50px;
 }
 
 body {
@@ -151,6 +151,6 @@ body {
 
 .title-line {
     border: none;
-    border-top: 1px double black;
+    border-top: 0.5px double black;
     margin: 10px 0; 
 }
