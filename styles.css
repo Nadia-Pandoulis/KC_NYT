@@ -224,7 +224,7 @@ body {
 @keyframes floatIn {
     from {
         opacity: 0;
-        transform: translateY(50px);
+        transform: translateY(-100px);
     }
 
     to {
@@ -234,25 +234,25 @@ body {
 }
 
 .start_screen img.logo {
-    animation-delay: 0.2s; 
+    animation-delay: 0.6s;
 }
 
 .start_screen h1.title {
-    animation-delay: 0.4s;
+    animation-delay: 0.8s;
 }
 
 .start_screen p.subtitle {
-    animation-delay: 0.6s; 
+    animation-delay: 1s;
 }
 
 .start_screen button.start_button {
-    animation-delay: 0.8s; 
+    animation-delay: 1.2s;
 }
 
 .start_screen p.start-date-text {
-    animation-delay: 1s; 
+    animation-delay: 1.4s;
 }
 
 .start_screen p.by-nads {
-    animation-delay: 1.2s;
+    animation-delay: 1.6s;
 }
