@@ -47,22 +47,6 @@ body {
     margin: 0 auto;
 }
 
-button {
-    padding: 5px 5px;
-    margin: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    font-family: 'ButtonFont', sans-serif;
-    text-transform: uppercase;
-    background-color: #EFEFE6;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    width: 150px;
-    height: 50px;
-    text-align: center;
-    justify-content: center;
-}
 
 .button-grid {
     display: grid;
@@ -70,7 +54,6 @@ button {
     grid-template-columns: repeat(4, 100px);
     grid-gap: 1em 3em; 
     border-radius: 10px;
-    max-width: 800px;
     justify-content: center;
     align-items: center;
 }
@@ -146,7 +129,6 @@ button {
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 800px;
 }
 
 
