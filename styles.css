@@ -147,3 +147,9 @@ body {
     text-align: center;
     line-height: 90vh;
 }*/
+
+.title-line {
+    border: none;
+    border-top: 1px double black;
+    margin: 10px 0; 
+}
