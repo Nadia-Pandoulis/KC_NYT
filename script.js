@@ -22,6 +22,7 @@ function startGame() {
 
     var startBackground = document.querySelector(".start_background");
     startBackground.style.display = "none";
+
     initializeGame();
 }
 
