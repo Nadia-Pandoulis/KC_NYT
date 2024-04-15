@@ -29,6 +29,11 @@ function initializeGame() {
     displayWords();
     shuffleWords();
 
+    // Show the action buttons
+    document.getElementById("shuffle").removeAttribute("hidden");
+    document.getElementById("deselect-all").removeAttribute("hidden");
+    document.getElementById("submit").removeAttribute("hidden")
+
     var mergeButtons = document.querySelectorAll('.theme-button');
 
     submitButton.addEventListener("click", submitAnswer);
