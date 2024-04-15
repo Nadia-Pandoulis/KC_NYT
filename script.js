@@ -16,6 +16,11 @@ var shuffleButton = document.getElementById("shuffle");
 var resultDisplay = document.getElementById("result");
 var livesDisplay = document.getElementById("lives");
 
+function startGame() {
+    document.querySelector('.start_screen').style.display = 'none';
+    initializeGame();
+}
+
 function initializeGame() {
     displayWords();
     shuffleWords();
