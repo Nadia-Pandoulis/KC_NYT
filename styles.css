@@ -44,6 +44,8 @@ body {
 
 #game-container {
     margin: 0 auto;
+    justify-content: center;
+    align-items: center;
 }
 
 .button-grid {
@@ -92,6 +94,8 @@ body {
     border: 0.5px solid black;
     text-align: center;
     justify-content: center;
+    justify-content: center;
+    align-items: center;
 }
 
     .button-action:disabled {
