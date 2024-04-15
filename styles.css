@@ -162,8 +162,10 @@ body {
     height: 100vh;
     background: #b3a3fb;
     color: black;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    animation: floatIn 1.5s ease-in-out forwards;
+    animation: floatIn 1.5s ease-in-out forwards; 
 }
 
 .logo {

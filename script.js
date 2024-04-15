@@ -17,11 +17,11 @@ var resultDisplay = document.getElementById("result");
 var livesDisplay = document.getElementById("lives");
 
 function startGame() {
-    var startScreen = document.getElementById("start_screen");
-    startScreen.style.display = "none"; 
+    var startScreen = document.querySelector(".start_screen");
+    startScreen.style.display = "none";
 
-    var startBackground = document.getElementById("start_screen");
-    startBackground.style.display = "none"; 
+    var startBackground = document.querySelector(".start_background");
+    startBackground.style.display = "none";
     initializeGame();
 }
 
