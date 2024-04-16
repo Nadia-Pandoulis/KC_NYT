@@ -35,7 +35,7 @@ h2 {
     font-size: 17px;
     text-align: center;
     letter-spacing: 0.5px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 body {
@@ -95,6 +95,7 @@ body {
     border: 0.5px solid black;
     text-align: center;
     justify-content: center;
+    opacity: 1;
 }
 
     .button-action:disabled {
@@ -105,6 +106,7 @@ body {
     background-color: black;
     color: white;
     border: 2px solid black;
+    opacity: 1;
 }
 
 .selected {
@@ -165,14 +167,15 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    animation: floatIn 1.5s ease-in-out forwards; 
 }
 
 .logo {
     width: 100px;
-    margin-top: 50px;
+    margin: 50px auto 0;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    z-index: 0;
+    animation: floatIn 0.8s ease-in-out forwards;
 }
 
 .title {
@@ -181,6 +184,7 @@ body {
     font-family: 'KC', sans-serif;
     z-index: 1;
     position: relative;
+    animation: floatIn 0.9s ease-in-out forwards;
 }
 
 .subtitle {
@@ -189,6 +193,7 @@ body {
     font-family: 'h2+livesFont';
     z-index: 2;
     position: relative;
+    animation: floatIn 1.0s ease-in-out forwards;
 }
 
 .start_button {
@@ -203,6 +208,7 @@ body {
     font-family: 'WordlistFont', sans-serif;
     z-index: 3;
     position: relative;
+    animation: floatIn 1.1s ease-in-out forwards;
 }
 
 .start-date-text {
@@ -211,6 +217,7 @@ body {
     font-family: 'WordlistFont', sans-serif;
     z-index: 4;
     position: relative;
+    animation: floatIn 1.2s ease-in-out forwards;
 }
 
 .by-nads {
@@ -219,40 +226,17 @@ body {
     font-family: 'h2+livesFont';
     z-index: 5;
     position: relative;
+    animation: floatIn 1.3s ease-in-out forwards;
 }
 
 @keyframes floatIn {
     from {
         opacity: 0;
-        transform: translateY(-100px);
+        transform: translateY(100px);
     }
 
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.start_screen img.logo {
-    animation-delay: 0.6s;
-}
-
-.start_screen h1.title {
-    animation-delay: 0.8s;
-}
-
-.start_screen p.subtitle {
-    animation-delay: 1s;
-}
-
-.start_screen button.start_button {
-    animation-delay: 1.2s;
-}
-
-.start_screen p.start-date-text {
-    animation-delay: 1.4s;
-}
-
-.start_screen p.by-nads {
-    animation-delay: 1.6s;
 }

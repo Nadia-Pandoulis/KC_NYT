@@ -16,12 +16,6 @@ var shuffleButton = document.getElementById("shuffle");
 var resultDisplay = document.getElementById("result");
 var livesDisplay = document.getElementById("lives");
 
-document.querySelectorAll('.button-action').forEach(function (button) {
-    if (button.disabled) {
-        button.style.opacity = '0';
-    }
-});
-
 function startGame() {
     var startScreen = document.querySelector(".start_screen");
     startScreen.style.display = "none";
@@ -41,12 +35,6 @@ function initializeGame() {
     document.getElementById("deselect-all").removeAttribute("hidden");
     document.getElementById("submit").removeAttribute("hidden");
 
-    // Show the disabled buttons
-    document.querySelectorAll('.button-action').forEach(function (button) {
-        if (button.disabled) {
-            button.style.opacity = '0.5';
-        }
-    });
 
     var mergeButtons = document.querySelectorAll('.theme-button');
 
