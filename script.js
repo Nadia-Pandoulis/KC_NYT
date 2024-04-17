@@ -8,6 +8,7 @@
 var lives = 4;
 var selectedWords = [];
 var successfulPairs = [];
+var pastGuesses = [];
 
 var buttonGrid = document.getElementById("button-grid");
 var submitButton = document.getElementById("submit");
@@ -25,6 +26,8 @@ function startGame() {
 
     deselectAllButton.style.display = "inline-block";
     submitButton.style.display = "inline-block";
+
+    pastGuesses = [];
 
     initializeGame();
 }
@@ -153,13 +156,50 @@ function toggleSelection(button) {
     }
 }
 
+function arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    for (var i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
+}
+
+function setsEqual(set1, set2) {
+    if (set1.size !== set2.size) return false;
+    for (var item of set1) {
+        if (!set2.has(item)) return false;
+    }
+    return true;
+}
+
+function arraysToSets(arrays) {
+    return arrays.map(array => new Set(array));
+}
+
 function submitAnswer() {
+    var currentSet = new Set(selectedWords);
+
+    // Check if the current set of words has already been guessed
+    var alreadyGuessed = pastGuesses.some(function (guess) {
+        return setsEqual(guess, currentSet);
+    });
+
+    if (alreadyGuessed) {
+        showNotification("Already guessed!");
+        submitButton.classList.remove("selected");
+        submitButton.setAttribute("disabled", "disabled");
+        return; 
+    }
+
     var currentPair = findWordPair(selectedWords[0]);
+
     if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
         successfulPairs.push(currentPair);
+        pastGuesses.push(currentSet); 
         displayWords();
     } else {
         updateLives(-1);
+        pastGuesses.push(currentSet); 
     }
 
     if (oneAway(selectedWords)) {
