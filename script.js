@@ -35,7 +35,7 @@ function initializeGame() {
     document.getElementById("deselect-all").removeAttribute("hidden");
     document.getElementById("submit").removeAttribute("hidden");
 
-
+    deselectAllButton.setAttribute("disabled", "disabled");
     var mergeButtons = document.querySelectorAll('.theme-button');
 
     submitButton.addEventListener("click", submitAnswer);
@@ -127,12 +127,24 @@ function toggleSelection(button) {
             deselectAllButton.setAttribute("disabled", "disabled");
         }
     }
+
+    if (selectedWords.length > 0) {
+        deselectAllButton.removeAttribute("disabled");
+    } else {
+        deselectAllButton.setAttribute("disabled", "disabled");
+    }
+
     if (selectedWords.length === 4) {
         submitButton.removeAttribute("disabled");
         submitButton.classList.add("selected");
     } else {
         submitButton.setAttribute("disabled", "disabled");
         submitButton.classList.remove("selected");
+    }
+
+    // Check if there are no selected buttons and disable the "Deselect All" button
+    if (document.querySelectorAll(".selected").length === 0) {
+        deselectAllButton.setAttribute("disabled", "disabled");
     }
 }
 
@@ -144,9 +156,45 @@ function submitAnswer() {
     } else {
         updateLives(-1);
     }
-    selectedWords = [];
+
+    if (oneAway(selectedWords)) {
+        showNotification("One away...");
+    }
+
     submitButton.classList.remove("selected");
     submitButton.setAttribute("disabled", "disabled");
+}
+
+function oneAway(selectedWords) {
+    for (var i = 0; i < wordPairs.length; i++) {
+        var wordPair = wordPairs[i];
+        var count = 0;
+        for (var j = 0; j < selectedWords.length; j++) {
+            if (wordPair.associatedWords.includes(selectedWords[j])) {
+                count++;
+            }
+        }
+
+        if (count === 3) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function showNotification(message) {
+    var notificationPopup = document.getElementById("notification-popup");
+    notificationPopup.style.display = "inline-block";
+    notificationPopup.style.opacity = "1";
+    notificationPopup.textContent = message;
+    setTimeout(function () {
+        notificationPopup.style.opacity = "0"; 
+        setTimeout(function () {
+            notificationPopup.style.display = "none";
+        }, 2000); 
+    }, 1000);
+
 }
 
 function gameOver() {

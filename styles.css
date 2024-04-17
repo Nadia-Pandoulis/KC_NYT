@@ -5,7 +5,7 @@
 
 @font-face {
     font-family: 'h2+livesFont';
-    src: url('TraditionSansXLight.ttf') format('opentype');
+    src: url('NewsCycle-Regular.ttf') format('opentype');
 }
 
 @font-face {
@@ -37,9 +37,9 @@ h1 {
 
 h2 {
     font-family: "h2+livesFont", sans-serif;
-    font-size: 17px;
+    font-size: 18px;
     text-align: center;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     margin-bottom: 20px;
 }
 
@@ -54,8 +54,8 @@ body {
 
 .button-grid {
     display: grid;
-    grid-template-columns: repeat(4, 150px);
-    grid-template-rows: repeat(4, 75px);
+    grid-template-columns: repeat(4, 152px);
+    grid-template-rows: repeat(4, 82px);
     grid-gap: 0.5em 0.5em; 
     border-radius: 10px;
     justify-content: center;
@@ -64,15 +64,16 @@ body {
 }
 
     .button-grid button {
-        width: 100%; 
+        width: 100%;
         height: 100%;
         overflow: hidden;
-        font-size: 18px;
+        font-size: 20px;
         cursor: pointer;
         font-family: 'ButtonFont', sans-serif;
         text-transform: uppercase;
         background-color: #EFEFE6;
         border-radius: 10px;
+        margin-bottom: 0px;
         border: none;
         outline: none;
         text-align: center;
@@ -84,16 +85,17 @@ body {
         }
 
 .button-action {
-    padding: 10px 20px;
+    padding: 15px 20px 15px;
     margin: 5px;
-    margin-top: 20px;
+    margin-top: 15px;
     margin-bottom: 20px;
-    font-size: 16px;
+    font-size: 14px;
+    letter-spacing: 0px;
     cursor: pointer;
     font-family: 'ButtonFont', sans-serif;
     border: none;
     text-transform: none;
-    border-radius: 50px;
+    border-radius: 30px;
     outline: none;
     background-color: white;
     color: black;
@@ -101,6 +103,7 @@ body {
     text-align: center;
     justify-content: center;
     opacity: 1;
+    display: inline-block;
 }
 
     .button-action:disabled {
@@ -135,20 +138,23 @@ body {
 #lives-display {
     font-family: "h2+livesFont", sans-serif;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
 }
 
     #lives-display #lives {
-        font-size: 40px;
+        font-size: 30px;
         color: #5a594e;
-        letter-spacing: 2px;
+        margin-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 3px;
     }
 
 .title-line {
     border: none;
-    border-top: 0.5px double black;
-    margin: 10px 0; 
+    border-top: 0.5px double lightgray;
+    margin: 10px 0;
 }
 
 .start_background {
@@ -266,4 +272,21 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.notification-popup {
+    display: none;
+    position: fixed;
+    margin-top: 50px;
+    font-family: 'ButtonFont', sans-serif;
+    font-size: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 9999;
+    transition: opacity 2s ease-out;
+    opacity: 1;
 }

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="notification-popup" class="notification-popup"></div>
     <div id="start_background" class="start_background"></div>
     <div class="start_screen">
         <img src="logo.png" alt="Logo" class="logo" />
@@ -26,7 +27,7 @@
         <div id="button-grid" class="button-grid"></div>
         <div id="lives-display">Mistakes remaining: <span id="lives">● ● ● ●</span></div>
         <button id="shuffle" class="button-action" hidden>Shuffle</button>
-        <button id="deselect-all" class="button-action" disabled style="width: 200px;" hidden>Deselect All</button>
+        <button id="deselect-all" class="button-action" hidden>Deselect all</button>
         <button id="submit" class="button-action" disabled hidden>Submit</button>
         <p id="result"></p>
     </div>
@@ -35,13 +36,10 @@
 </html>
 
 <!--To do
-    - chode action buttons
+    - end screen
     - hide action buttons in start screen
     - come up with pairs
-    - make three games
-    - make it so you dont have to deselect after a wrong guess
-    - make title line a light grey
+    - make three games 
     - hide answers from user source code
-    - fix logo to sit at top of start page
-    - change start screen date text to be the bolded font
-    - "one away" functionality-->
+    - "one away" functionality
+    - fix format of mistakes remaining and lives-->
