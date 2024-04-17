@@ -108,6 +108,7 @@ body {
 
     .button-action:disabled {
         opacity: 0.5;
+        display: none;
     }
 
 #submit.selected {

@@ -23,6 +23,9 @@ function startGame() {
     var startBackground = document.querySelector(".start_background");
     startBackground.style.display = "none";
 
+    deselectAllButton.style.display = "inline-block";
+    submitButton.style.display = "inline-block";
+
     initializeGame();
 }
 
@@ -36,6 +39,7 @@ function initializeGame() {
     document.getElementById("submit").removeAttribute("hidden");
 
     deselectAllButton.setAttribute("disabled", "disabled");
+    
     var mergeButtons = document.querySelectorAll('.theme-button');
 
     submitButton.addEventListener("click", submitAnswer);
@@ -82,6 +86,7 @@ function displayWords() {
             });
         }
     });
+    
     shuffleWords();
 }
 
