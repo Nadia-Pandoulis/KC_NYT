@@ -120,42 +120,41 @@ function createMergeButton(theme, color, associatedWords) {
 }
 
 function toggleSelection(button) {
-    if (selectedWords.length === 4 && !button.classList.contains("selected")) {
-        return;
-    }
-
+    // Toggling the 'selected' class on the button
     button.classList.toggle("selected");
+
     var word = button.textContent;
+
     if (button.classList.contains("selected")) {
         selectedWords.push(word);
-        deselectAllButton.removeAttribute("disabled");
     } else {
         selectedWords = selectedWords.filter(w => w !== word);
-        if (selectedWords.length === 0) {
-            deselectAllButton.setAttribute("disabled", "disabled");
-        }
     }
 
+    // Enable/disable 'Deselect All' button based on selected words
     if (selectedWords.length > 0) {
         deselectAllButton.removeAttribute("disabled");
     } else {
         deselectAllButton.setAttribute("disabled", "disabled");
     }
 
+    // Check if there are 4 selected words to enable/disable submit button
     if (selectedWords.length === 4) {
         submitButton.removeAttribute("disabled");
         submitButton.classList.add("selected");
     } else {
         submitButton.setAttribute("disabled", "disabled");
-        submitButton.classList.remove("selected");
     }
 
-    // Check if there are no selected buttons and disable the "Deselect All" button
-    if (document.querySelectorAll(".selected").length === 0) {
-        deselectAllButton.setAttribute("disabled", "disabled");
+    // If there are no selected buttons, ensure the submit button remains disabled
+    if (selectedWords.length === 0) {
+        submitButton.setAttribute("disabled", "disabled");
     }
 }
 
+
+
+// Submit Answer logic functions
 function arraysEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
     for (var i = 0; i < arr1.length; i++) {
@@ -176,10 +175,10 @@ function arraysToSets(arrays) {
     return arrays.map(array => new Set(array));
 }
 
+// Submit answer
 function submitAnswer() {
     var currentSet = new Set(selectedWords);
 
-    // Check if the current set of words has already been guessed
     var alreadyGuessed = pastGuesses.some(function (guess) {
         return setsEqual(guess, currentSet);
     });
@@ -188,18 +187,19 @@ function submitAnswer() {
         showNotification("Already guessed!");
         submitButton.classList.remove("selected");
         submitButton.setAttribute("disabled", "disabled");
-        return; 
+        return;
     }
 
     var currentPair = findWordPair(selectedWords[0]);
 
     if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
         successfulPairs.push(currentPair);
-        pastGuesses.push(currentSet); 
-        displayWords();
+        pastGuesses.push(currentSet);
+        displayWords(); 
+        selectedWords = [];
     } else {
         updateLives(-1);
-        pastGuesses.push(currentSet); 
+        pastGuesses.push(currentSet);
     }
 
     if (oneAway(selectedWords)) {
@@ -209,6 +209,7 @@ function submitAnswer() {
     submitButton.classList.remove("selected");
     submitButton.setAttribute("disabled", "disabled");
 }
+
 
 function oneAway(selectedWords) {
     for (var i = 0; i < wordPairs.length; i++) {
@@ -243,7 +244,79 @@ function showNotification(message) {
 }
 
 function gameOver() {
-    alert("Game Over!");
+    showNotification("Next Time");
+    clearSelectedState();
+    mergeRemainingButtons();
+
+}
+
+function clearSelectedState() {
+    var selectedButtons = document.querySelectorAll(".selected");
+    selectedButtons.forEach(function (button) {
+        button.classList.remove("selected");
+    });
+    selectedWords = [];
+
+    // Hide the action buttons
+    document.getElementById("shuffle").setAttribute("hidden", "hidden");
+    document.getElementById("deselect-all").setAttribute("hidden", "hidden");
+    document.getElementById("submit").setAttribute("hidden", "hidden");
+}
+
+function mergeRemainingButtons() {
+    var mergeButtonThemes = new Set(); // Set to keep track of themes with merge buttons
+
+    var mergeButtons = document.querySelectorAll('.theme-button');
+
+    // Iterate through existing merge buttons to remove associated buttons and add themes to the set
+    mergeButtons.forEach(function (mergeButton) {
+        var theme = mergeButton.querySelector("strong").textContent;
+        mergeButtonThemes.add(theme);
+
+        // Remove existing buttons associated with the theme
+        var parent = mergeButton.parentElement;
+        parent.querySelectorAll("button:not(.theme-button)").forEach(function (button) {
+            parent.removeChild(button);
+        });
+    });
+
+    // Iterate through wordPairs to create merge buttons for themes that don't have one yet
+    var remainingPairs = wordPairs.filter(function (pair) {
+        return !successfulPairs.includes(pair);
+    });
+
+    var currentRow;
+
+    remainingPairs.forEach(function (wordPair, index) {
+        if (index % 4 === 0) {
+            currentRow = document.createElement("div");
+            currentRow.classList.add("button-grid"); // Add the button grid class to the row
+            buttonGrid.appendChild(currentRow);
+        }
+
+        // Create a new merge button for the theme
+        var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
+        mergeButton.classList.add("theme-button"); // Ensure it has the theme-button class
+
+        // Append the merge button to the current row
+        currentRow.appendChild(mergeButton);
+
+        // Add the theme to the set
+        mergeButtonThemes.add(wordPair.theme);
+    });
+
+    // Move remaining buttons to their respective merge buttons
+    var remainingButtons = document.querySelectorAll(".button-grid button:not(.theme-button)");
+    remainingButtons.forEach(function (button) {
+        var word = button.textContent;
+        var pair = findWordPair(word);
+        mergeButtons.forEach(function (mergeButton) {
+            var mergeTheme = mergeButton.querySelector("strong").textContent;
+            if (pair.theme === mergeTheme) {
+                mergeButton.parentElement.appendChild(button);
+            }
+        });
+    });
 }
 
 function findWordPair(word) {
@@ -254,7 +327,7 @@ function updateLives(change) {
     lives += change;
     var livesText = "";
     for (var i = 0; i < lives; i++) {
-        livesText += "● ";
+        livesText += "●";
     }
     livesDisplay.textContent = livesText;
     if (lives === 0) {
@@ -268,6 +341,7 @@ function deselectAll() {
         button.classList.remove("selected");
     });
     selectedWords = [];
+    submitButton.classList.remove("selected");
     submitButton.setAttribute("disabled", "disabled");
 }
 
