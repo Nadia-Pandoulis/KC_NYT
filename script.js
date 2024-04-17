@@ -126,7 +126,12 @@ function toggleSelection(button) {
     var word = button.textContent;
 
     if (button.classList.contains("selected")) {
-        selectedWords.push(word);
+        if (selectedWords.length < 4) {
+            selectedWords.push(word);
+        } else {
+            button.classList.remove("selected");
+            return; // Exit function if more than four buttons are selected
+        }
     } else {
         selectedWords = selectedWords.filter(w => w !== word);
     }
@@ -144,13 +149,15 @@ function toggleSelection(button) {
         submitButton.classList.add("selected");
     } else {
         submitButton.setAttribute("disabled", "disabled");
+        submitButton.classList.remove("selected");
     }
 
-    // If there are no selected buttons, ensure the submit button remains disabled
-    if (selectedWords.length === 0) {
+    // If there are fewer than 4 selected buttons, ensure the submit button remains disabled
+    if (selectedWords.length < 4) {
         submitButton.setAttribute("disabled", "disabled");
     }
 }
+
 
 
 
@@ -195,11 +202,12 @@ function submitAnswer() {
     if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
         successfulPairs.push(currentPair);
         pastGuesses.push(currentSet);
-        displayWords(); 
         selectedWords = [];
+        displayWords(); 
     } else {
         updateLives(-1);
         pastGuesses.push(currentSet);
+
     }
 
     if (oneAway(selectedWords)) {
