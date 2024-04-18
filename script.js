@@ -204,6 +204,9 @@ function submitAnswer() {
         pastGuesses.push(currentSet);
         selectedWords = [];
         displayWords(); 
+        if (successfulPairs.length === wordPairs.length) {
+            gameOverWin(); 
+        }
     } else {
         updateLives(-1);
         pastGuesses.push(currentSet);
@@ -251,10 +254,15 @@ function showNotification(message) {
 
 }
 
-function gameOver() {
+function gameOverLose() {
     showNotification("Next Time");
     clearSelectedState();
     mergeRemainingButtons();
+
+}
+
+function gameOverWin() {
+    showNotification("Good job!");
 
 }
 
@@ -271,62 +279,6 @@ function clearSelectedState() {
     document.getElementById("submit").setAttribute("hidden", "hidden");
 }
 
-function mergeRemainingButtons() {
-    var mergeButtonThemes = new Set(); // Set to keep track of themes with merge buttons
-
-    var mergeButtons = document.querySelectorAll('.theme-button');
-
-    // Iterate through existing merge buttons to remove associated buttons and add themes to the set
-    mergeButtons.forEach(function (mergeButton) {
-        var theme = mergeButton.querySelector("strong").textContent;
-        mergeButtonThemes.add(theme);
-
-        // Remove existing buttons associated with the theme
-        var parent = mergeButton.parentElement;
-        parent.querySelectorAll("button:not(.theme-button)").forEach(function (button) {
-            parent.removeChild(button);
-        });
-    });
-
-    // Iterate through wordPairs to create merge buttons for themes that don't have one yet
-    var remainingPairs = wordPairs.filter(function (pair) {
-        return !successfulPairs.includes(pair);
-    });
-
-    var currentRow;
-
-    remainingPairs.forEach(function (wordPair, index) {
-        if (index % 4 === 0) {
-            currentRow = document.createElement("div");
-            currentRow.classList.add("button-grid"); // Add the button grid class to the row
-            buttonGrid.appendChild(currentRow);
-        }
-
-        // Create a new merge button for the theme
-        var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
-        mergeButton.classList.add("theme-button"); // Ensure it has the theme-button class
-
-        // Append the merge button to the current row
-        currentRow.appendChild(mergeButton);
-
-        // Add the theme to the set
-        mergeButtonThemes.add(wordPair.theme);
-    });
-
-    // Move remaining buttons to their respective merge buttons
-    var remainingButtons = document.querySelectorAll(".button-grid button:not(.theme-button)");
-    remainingButtons.forEach(function (button) {
-        var word = button.textContent;
-        var pair = findWordPair(word);
-        mergeButtons.forEach(function (mergeButton) {
-            var mergeTheme = mergeButton.querySelector("strong").textContent;
-            if (pair.theme === mergeTheme) {
-                mergeButton.parentElement.appendChild(button);
-            }
-        });
-    });
-}
-
 function findWordPair(word) {
     return wordPairs.find(pair => pair.associatedWords.includes(word));
 }
@@ -339,7 +291,7 @@ function updateLives(change) {
     }
     livesDisplay.textContent = livesText;
     if (lives === 0) {
-        gameOver();
+        gameOverLose();
     }
 }
 
@@ -377,6 +329,25 @@ function shuffleArray(array) {
         array[randomIndex] = temporaryValue;
     }
     return array;
+}
+function mergeRemainingButtons() {
+    var remainingButtons = document.querySelectorAll('.button-grid button:not(.theme-button)');
+    var remainingPairs = wordPairs.filter(pair => !successfulPairs.includes(pair));
+
+    remainingButtons.forEach(remainingButton => {
+        var word = remainingButton.textContent;
+        remainingPairs.forEach(wordPair => {
+            if (wordPair.associatedWords.includes(word)) {
+                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
+                buttonGrid.replaceChild(mergeButton, remainingButton);
+                remainingPairs.splice(remainingPairs.indexOf(wordPair), 1);
+            }
+        });
+    });
+
+    remainingButtons.forEach(remainingButton => {
+        remainingButton.parentNode.removeChild(remainingButton);
+    });
 }
 
 initializeGame();
