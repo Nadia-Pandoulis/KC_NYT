@@ -257,9 +257,33 @@ function showNotification(message) {
 function gameOverLose() {
     showNotification("Next Time");
     clearSelectedState();
-    mergeRemainingButtons();
+    submitRemainingWordPairs()
 
 }
+
+function submitRemainingWordPairs() {
+    var remainingPairs = wordPairs.filter(pair => !successfulPairs.includes(pair));
+
+    remainingPairs.forEach(pair => {
+        // Simulate selecting associated words
+        pair.associatedWords.forEach(word => {
+            var buttons = document.querySelectorAll('.button-grid button:not(.theme-button)');
+            buttons.forEach(button => {
+                if (button.textContent === word) {
+                    button.classList.add("selected");
+                    selectedWords.push(word);
+                }
+            });
+        });
+
+        // Simulate submitting the selected words
+        submitAnswer();
+
+        // Clear selected words for the next iteration
+        selectedWords = [];
+    });
+}
+
 
 function gameOverWin() {
     showNotification("Good job!");
@@ -332,26 +356,42 @@ function shuffleArray(array) {
 }
 
 
-function mergeRemainingButtons() {
-    var remainingButtons = document.querySelectorAll('.button-grid button:not(.theme-button)');
-    var remainingPairs = wordPairs.filter(pair => !successfulPairs.includes(pair));
+//function mergeRemainingButtons() {
+//    var remainingButtons = document.querySelectorAll('.button-grid button:not(.theme-button)');
+//    var remainingPairs = wordPairs.filter(pair => !successfulPairs.includes(pair));
 
-    remainingButtons.forEach(remainingButton => {
-        var word = remainingButton.textContent;
-        remainingPairs.forEach(wordPair => {
-            if (wordPair.associatedWords.includes(word)) {
-                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
-                var parentRow = remainingButton.parentNode;
-                parentRow.replaceChild(mergeButton, remainingButton);
-                remainingPairs.splice(remainingPairs.indexOf(wordPair), 1); // Remove the pair from the remaining pairs array
-            }
-        });
-    });
+//    remainingButtons.forEach(remainingButton => {
+//        var word = remainingButton.textContent;
+//        remainingPairs.forEach(wordPair => {
+//            if (wordPair.associatedWords.includes(word)) {
+//                var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
+//                var parentRow = remainingButton.parentNode;
+//                parentRow.replaceChild(mergeButton, remainingButton);
+//                remainingPairs.splice(remainingPairs.indexOf(wordPair), 1); // Remove the pair from the remaining pairs array
+//            }
+//        });
+//    });
 
-    // Remove any remaining non-merge buttons
-    remainingButtons.forEach(remainingButton => {
-        remainingButton.parentNode.removeChild(remainingButton);
-    });
-}
+//    // Remove any remaining non-merge buttons
+//    remainingButtons.forEach(remainingButton => {
+//        remainingButton.parentNode.removeChild(remainingButton);
+//    });
+
+//    /*removeExcessButtons();*/
+//}
+
+////function removeExcessButtons() {
+////    var remainingButtons = document.querySelectorAll('.button-grid button:not(.theme-button)');
+////    var numRows = Math.ceil(remainingButtons.length / 4);
+
+////    // Remove excess buttons if the number of rows exceeds 4
+////    if (numRows > 4) {
+////        for (let i = 4; i < numRows; i++) {
+////            var excessButtons = document.querySelectorAll('.button-grid button:not(.theme-button):nth-last-child(-n+' + (remainingButtons.length - (i - 1) * 4) + ')');
+////            excessButtons.forEach(button => button.parentNode.removeChild(button));
+////        }
+////    }
+//}
+
 
 initializeGame();
