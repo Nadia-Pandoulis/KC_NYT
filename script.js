@@ -286,7 +286,6 @@ function submitRemainingWordPairs() {
 
 
 function gameOverWin() {
-    showNotification("Good job!");
 
 }
 

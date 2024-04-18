@@ -104,6 +104,7 @@ body {
     justify-content: center;
     opacity: 1;
     display: inline-block;
+    box-sizing: border-box;
 }
 
     .button-action:disabled {
