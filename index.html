@@ -19,6 +19,14 @@
             <p class="by-nads">By Nadia (your super cool girlfriend) </p>
         </div>
     </div>
+
+    <div id="game-selector-box" class="game-selector-box">
+        <button id="close-selector" onclick="closeGameSelector()">X</button>
+        <h1> Select a Game:</h1>
+        <button onclick="preInitialiseGame(wordPairs1)">Game 1</button>
+        <button onclick="preInitialiseGame(wordPairs2)">Game 2</button>
+        <button onclick="preInitialiseGame(wordPairs3)">Game 3</button>
+    </div>
     <h1> Kane Connections </h1>
     <div class="date-text">April 12, 2024</div>
     <hr class="title-line">
@@ -26,9 +34,12 @@
     <div id="game-container">
         <div id="button-grid" class="button-grid"></div>
         <div id="lives-display">Mistakes remaining: <span id="lives">● ● ● ●</span></div>
-        <button id="shuffle" class="button-action" hidden>Shuffle</button>
-        <button id="deselect-all" class="button-action" hidden>Deselect all</button>
-        <button id="submit" class="button-action" disabled hidden>Submit</button>
+        <div>
+            <button id="shuffle" class="button-action" hidden>Shuffle</button>
+            <button id="deselect-all" class="button-action" hidden>Deselect all</button>
+            <button id="submit" class="button-action" disabled hidden>Submit</button>
+            <button id="game-selector-button" class="selector-button" onclick="openGameSelector()">Game Selector</button>
+        </div>
         <p id="result"></p>
     </div>
     <script src="script.js"></script>
