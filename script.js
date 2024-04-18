@@ -327,6 +327,7 @@ function deselectAll() {
     selectedWords = [];
     submitButton.classList.remove("selected");
     submitButton.setAttribute("disabled", "disabled");
+    deselectAllButton.setAttribute("disabled", "disabled");
 }
 
 function shuffleWords() {
