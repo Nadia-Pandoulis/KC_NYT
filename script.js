@@ -330,6 +330,8 @@ function shuffleArray(array) {
     }
     return array;
 }
+
+
 function mergeRemainingButtons() {
     var remainingButtons = document.querySelectorAll('.button-grid button:not(.theme-button)');
     var remainingPairs = wordPairs.filter(pair => !successfulPairs.includes(pair));
@@ -339,12 +341,14 @@ function mergeRemainingButtons() {
         remainingPairs.forEach(wordPair => {
             if (wordPair.associatedWords.includes(word)) {
                 var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
-                buttonGrid.replaceChild(mergeButton, remainingButton);
-                remainingPairs.splice(remainingPairs.indexOf(wordPair), 1);
+                var parentRow = remainingButton.parentNode;
+                parentRow.replaceChild(mergeButton, remainingButton);
+                remainingPairs.splice(remainingPairs.indexOf(wordPair), 1); // Remove the pair from the remaining pairs array
             }
         });
     });
 
+    // Remove any remaining non-merge buttons
     remainingButtons.forEach(remainingButton => {
         remainingButton.parentNode.removeChild(remainingButton);
     });
