@@ -1,4 +1,4 @@
-﻿var space = [
+﻿var wordPairs = [
     { theme: " ", associatedWords: [" ", " ", " ", " "], color: "#f9da6d" },
     { theme: " ", associatedWords: [" ", " ", " ", " "], color: "#f9da6d" },
     { theme: " ", associatedWords: [" ", " ", " ", " "], color: "#f9da6d" },
@@ -25,7 +25,6 @@ var wordPairs3 = [
     { theme: "car", associatedWords: ["drive", "engine", "road", "wheel"], color: "#b5c3e7" },
     { theme: "yo", associatedWords: ["huh", "bruh", "bro", "pal"], color: "#bb84c2" }
 ];
-
 
 var lives = 4;
 var selectedWords = [];
@@ -77,6 +76,8 @@ function clearButtonGrid(wordPairs) {
     selectedWords = []; 
     successfulPairs = []; 
     pastGuesses = []; 
+    console.log("Past Guesses Cleared");
+    console.log(pastGuesses);
     gameSelectorButton.style.display = "none";
     lives = 4; 
     updateLives(0, wordPairs); 
@@ -101,8 +102,9 @@ function openGameSelector() {
     document.getElementById("game-selector-button").classList.add("disable-hover");
 }
 
-function preInitialiseGame(wordPairs) {
-    clearButtonGrid(wordPairs);
+function preInitialiseGame(selectedWordPair) {
+    wordPairs = selectedWordPair;
+    clearButtonGrid();
 
     deselectAllButton.style.display = "inline-block";
     submitButton.style.display = "inline-block";
@@ -115,19 +117,21 @@ function preInitialiseGame(wordPairs) {
     lives.style.display = "inline-block";
 
     pastGuesses = [];
+    console.log("Past Guesses Cleared2");
+    console.log(pastGuesses);
 
     closeGameSelector();
 
     gameSelectorButton.style.display = "none";
 
-    initializeGame(wordPairs);
+    initializeGame();
 }
 
-function initializeGame(wordPairs) {
+function initializeGame() {
     var mainContent = document.querySelector(".start_screen");
     mainContent.style.filter = "none";
 
-    displayWords(wordPairs);
+    displayWords();
     shuffleWords();
 
     // Show the action buttons
@@ -139,14 +143,12 @@ function initializeGame(wordPairs) {
     
     var mergeButtons = document.querySelectorAll('.theme-button');
 
-    submitButton.addEventListener("click", function () {
-        submitAnswer(wordPairs);
-    });
+    submitButton.addEventListener("click", submitAnswer);
     deselectAllButton.addEventListener("click", deselectAll);
     shuffleButton.addEventListener("click", shuffleWords);
 }
 
-function displayWords(wordPairs) {
+function displayWords() {
     buttonGrid.innerHTML = "";
     var mergeButtonCreated = false;
 
@@ -156,21 +158,21 @@ function displayWords(wordPairs) {
 
     var currentRow;
 
-    successfulPairs.forEach(function (wordPair, index) {
+    successfulPairs.forEach(function (wordPairs, index) {
         if (index % 4 === 0) {
             currentRow = document.createElement("div");
             currentRow.classList.add("button-grid");
             buttonGrid.appendChild(currentRow);
         }
-        var mergeButton = createMergeButton(wordPair.theme, wordPair.color, wordPair.associatedWords);
+        var mergeButton = createMergeButton(wordPairs.theme, wordPairs.color, wordPairs.associatedWords);
         currentRow.appendChild(mergeButton);
         mergeButtonCreated = true;
     });
 
-    remainingPairs.forEach(function (wordPair) {
-        var groupIndex = successfulPairs.indexOf(wordPair);
+    remainingPairs.forEach(function (wordPairs) {
+        var groupIndex = successfulPairs.indexOf(wordPairs);
         if (groupIndex === -1) {
-            var shuffledWords = shuffleArray(wordPair.associatedWords);
+            var shuffledWords = shuffleArray(wordPairs.associatedWords);
             var shuffledButtons = shuffledWords.map(function (word) {
                 return createButton(word);
             });
@@ -279,7 +281,7 @@ function arraysToSets(arrays) {
 }
 
 // Submit answer
-function submitAnswer(wordPairs) {
+function submitAnswer() {
     var currentSet = new Set(selectedWords);
 
     var alreadyGuessed = pastGuesses.some(function (guess) {
@@ -293,25 +295,32 @@ function submitAnswer(wordPairs) {
         return;
     }
 
-    var currentPair = findWordPair(selectedWords[0], wordPairs);
+    console.log("selected");
+    console.log(selectedWords[0]);
+    console.log("wordpair");
+    console.log(wordPairs);
+    var currentPair = findWordPair(selectedWords[0]);
+    console.log("currentpair");
     console.log(currentPair);
+    console.log("Associated words");
+    console.log(currentPair.associatedWords);
 
 
     if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
         successfulPairs.push(currentPair);
         pastGuesses.push(currentSet);
         selectedWords = [];
-        displayWords(wordPairs); 
+        displayWords(); 
         if (successfulPairs.length === wordPairs.length) {
             gameOverWin(); 
         }
     } else {
-        updateLives(-1, wordPairs);
+        updateLives(-1);
         pastGuesses.push(currentSet);
 
     }
 
-    if (oneAway(selectedWords, wordPairs)) {
+    if (oneAway(selectedWords)) {
         showNotification("One away...");
     }
 
@@ -320,7 +329,7 @@ function submitAnswer(wordPairs) {
 }
 
 
-function oneAway(selectedWords, wordPairs) {
+function oneAway(selectedWords) {
     for (var i = 0; i < wordPairs.length; i++) {
         var wordPair = wordPairs[i];
         var count = 0;
@@ -352,14 +361,14 @@ function showNotification(message) {
 
 }
 
-function gameOverLose(wordPairs) {
+function gameOverLose() {
     showNotification("Next Time");
     clearSelectedState();
-    submitRemainingWordPairs(wordPairs);
+    submitRemainingWordPairs();
 
 }
 
-function submitRemainingWordPairs(wordPairs) {
+function submitRemainingWordPairs() {
     var remainingPairs = wordPairs.filter(pair => !successfulPairs.includes(pair));
 
     remainingPairs.forEach(pair => {
@@ -375,7 +384,7 @@ function submitRemainingWordPairs(wordPairs) {
         });
 
         // Simulate submitting the selected words
-        submitAnswer(wordPairs);
+        submitAnswer();
 
         // Clear selected words for the next iteration
         selectedWords = [];
@@ -400,11 +409,11 @@ function clearSelectedState() {
     document.getElementById("submit").setAttribute("hidden", "hidden");
 }
 
-function findWordPair(word, wordPairs) {
+function findWordPair(word) {
     return wordPairs.find(pair => pair.associatedWords.includes(word));
 }
 
-function updateLives(change, wordPairs) {
+function updateLives(change) {
     lives += change;
     var livesText = "";
     for (var i = 0; i < lives; i++) {
@@ -412,7 +421,7 @@ function updateLives(change, wordPairs) {
     }
     livesDisplay.textContent = livesText;
     if (lives === 0) {
-        gameOverLose(wordPairs);
+        gameOverLose();
     }
 }
 
@@ -453,4 +462,4 @@ function shuffleArray(array) {
     return array;
 }
 
-initializeGame(space);
+initializeGame();
