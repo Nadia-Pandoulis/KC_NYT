@@ -30,6 +30,7 @@ var lives = 4;
 var selectedWords = [];
 var successfulPairs = [];
 var pastGuesses = [];
+var currentMerge = 0;
 
 var buttonGrid = document.getElementById("button-grid");
 var submitButton = document.getElementById("submit");
@@ -90,6 +91,7 @@ function clearButtonGrid(wordPairs) {
     selectedWords = []; 
     successfulPairs = []; 
     pastGuesses = []; 
+    currentMerge = 0;
     gameSelectorButton.style.display = "none";
     lives = 4; 
     updateLives(0, wordPairs); 
@@ -129,6 +131,7 @@ function preInitialiseGame(selectedWordPair) {
     lives.style.display = "inline-block";
 
     pastGuesses = [];
+    currentMerge = 0;
 
     closeGameSelector();
 
@@ -174,9 +177,16 @@ function displayWords() {
             currentRow.classList.add("button-grid");
             buttonGrid.appendChild(currentRow);
         }
-        var mergeButton = createMergeButton(wordPairs.theme, wordPairs.color, wordPairs.associatedWords);
+        console.log(index)
+        if (index > currentMerge) {
+            currentMerge = index;
+        }
+        var mergeButton = createMergeButton(wordPairs.theme, wordPairs.color, wordPairs.associatedWords, index, currentMerge);
         currentRow.appendChild(mergeButton);
         mergeButtonCreated = true;
+        if (index == currentMerge) {
+            currentMerge += 1;
+        }
     });
 
     remainingPairs.forEach(function (wordPairs) {
@@ -210,9 +220,9 @@ function createButton(word) {
     return button;
 }
 
-function createMergeButton(theme, color, associatedWords) {
+function createMergeButton(theme, color, associatedWords, index, currentMerge) {
     var button = document.createElement("button");
-    button.classList.add("theme-button", "pop-out");
+    button.classList.add("theme-button");
     button.style.backgroundColor = color;
 
     var themeTitle = document.createElement("strong");
@@ -224,12 +234,14 @@ function createMergeButton(theme, color, associatedWords) {
     associatedWordsDiv.style.fontFamily = "'WordlistFont', sans-serif";
     button.appendChild(associatedWordsDiv);
 
-    setTimeout(function () {
-        button.classList.remove("pop-out");
-    }, 500);
+    // Only add the pop-out animation class for the current indexed button
+    if (index === currentMerge) {
+        button.classList.add("pop-out");
+    }
 
     return button;
 }
+
 
 function toggleSelection(button) {
     // Toggling the 'selected' class on the button
