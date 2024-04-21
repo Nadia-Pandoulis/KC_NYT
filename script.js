@@ -39,6 +39,20 @@ var shuffleButton = document.getElementById("shuffle");
 var resultDisplay = document.getElementById("result");
 var livesDisplay = document.getElementById("lives");
 
+function fadeOutLoadingScreen() {
+    var loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.style.opacity = '0';
+    setTimeout(function () {
+        loadingScreen.style.display = 'none';
+        showStartScreen();
+    }, 2000); 
+}
+
+function showStartScreen() {
+    var startScreen = document.querySelector('.start_screen');
+    startScreen.style.display = 'block';
+}
+
 function startGame() {
     var startScreen = document.querySelector(".start_screen");
     startScreen.style.display = "none";
@@ -76,8 +90,6 @@ function clearButtonGrid(wordPairs) {
     selectedWords = []; 
     successfulPairs = []; 
     pastGuesses = []; 
-    console.log("Past Guesses Cleared");
-    console.log(pastGuesses);
     gameSelectorButton.style.display = "none";
     lives = 4; 
     updateLives(0, wordPairs); 
@@ -117,8 +129,6 @@ function preInitialiseGame(selectedWordPair) {
     lives.style.display = "inline-block";
 
     pastGuesses = [];
-    console.log("Past Guesses Cleared2");
-    console.log(pastGuesses);
 
     closeGameSelector();
 
@@ -202,7 +212,7 @@ function createButton(word) {
 
 function createMergeButton(theme, color, associatedWords) {
     var button = document.createElement("button");
-    button.classList.add("theme-button");
+    button.classList.add("theme-button", "pop-out");
     button.style.backgroundColor = color;
 
     var themeTitle = document.createElement("strong");
@@ -213,6 +223,10 @@ function createMergeButton(theme, color, associatedWords) {
     associatedWordsDiv.textContent = associatedWords.join(", ");
     associatedWordsDiv.style.fontFamily = "'WordlistFont', sans-serif";
     button.appendChild(associatedWordsDiv);
+
+    setTimeout(function () {
+        button.classList.remove("pop-out");
+    }, 500);
 
     return button;
 }
@@ -295,15 +309,7 @@ function submitAnswer() {
         return;
     }
 
-    console.log("selected");
-    console.log(selectedWords[0]);
-    console.log("wordpair");
-    console.log(wordPairs);
     var currentPair = findWordPair(selectedWords[0]);
-    console.log("currentpair");
-    console.log(currentPair);
-    console.log("Associated words");
-    console.log(currentPair.associatedWords);
 
 
     if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {

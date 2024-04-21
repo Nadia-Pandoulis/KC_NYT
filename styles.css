@@ -136,6 +136,33 @@ body {
     text-align: center;
 }
 
+.pop-out {
+    animation-name: popOut;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    z-index: 2;
+}
+
+@keyframes popOut {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1); 
+        opacity: 1; 
+    }
+}
+
+
+
 
 #lives-display {
     font-family: "h2+livesFont", sans-serif;
@@ -181,6 +208,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+    display: none;
 }
 
 
@@ -394,3 +422,42 @@ body {
     .disable-hover {
         pointer-events: none;
     }
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 3.5s ease-out;
+}
+
+.loading-progress {
+    width: 200px; 
+    height: 10px; 
+    background-color: white;
+    border-radius: 10px; 
+}
+
+.loading-bar {
+    height: 100%;
+    background-color: black;
+    border-radius: 10px; 
+    animation: loadingAnimation 2s infinite;
+}
+
+@keyframes loadingAnimation {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}

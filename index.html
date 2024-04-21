@@ -6,7 +6,12 @@
     <title>Kane Connections</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body onload="fadeOutLoadingScreen()">
+    <div id="loading-screen">
+        <div class="loading-progress">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
     <div id="notification-popup" class="notification-popup"></div>
     <div id="start_background" class="start_background"></div>
     <div class="start_screen">
@@ -51,5 +56,4 @@
     - Merge button pop up animation
     - loading screen
     - delay game select - with merge button animations
-    - fix error in terminal - and potential errors with successive games (Already guessed)
      -->
