@@ -13,18 +13,18 @@ var wordPairs1 = [
 ];
 
 var wordPairs2 = [
-    { theme: "our past date locations", associatedWords: ["movies", "bowling", "sushi", "restaurant"], color: "#f9da6d" },
-    { theme: "tree", associatedWords: ["leaf", "branch", "bark", "wood"], color: "#a4c45c" },
-    { theme: "car", associatedWords: ["drive", "engine", "road", "wheel"], color: "#b5c3e7" },
-    { theme: "yo", associatedWords: ["huh", "bruh", "bro", "pal"], color: "#bb84c2" }
+    { theme: "quick bites", associatedWords: ["yallah", "hsp", "iga", "maccas"], color: "#f9da6d" },
+    { theme: "Kane Starterpack", associatedWords: ["motorbike", "aviators", "desk setup", "chelsea boots"], color: "#a4c45c" },
+    { theme: "Hobbies", associatedWords: ["rubiks cube", "piano", "coding", "movies"], color: "#b5c3e7" },
+    { theme: "Related to other groups (but not quite right)", associatedWords: ["stellini's", "guitar", "tie", "ramen"], color: "#bb84c2" }
 ];
 
 var wordPairs3 = [
-    { theme: "our past date locations", associatedWords: ["movies", "bowling", "sushi", "restaurant"], color: "#f9da6d" },
-    { theme: "tree", associatedWords: ["leaf", "branch", "bark", "wood"], color: "#a4c45c" },
-    { theme: "car", associatedWords: ["drive", "engine", "road", "wheel"], color: "#b5c3e7" },
-    { theme: "yo", associatedWords: ["huh", "bruh", "bro", "pal"], color: "#bb84c2" }
-];
+    { theme: "past couples costumes", associatedWords: ["barb", "perry", "love", "y2k"], color: "#f9da6d" },
+    { theme: "dislikes", associatedWords: ["Mayo", "Blue Cheese", "Trump", "Black Licorice"], color: "#a4c45c" },
+    { theme: "things i like to chomp", associatedWords: ["arm", "nutella", "percy", "nuggets"], color: "#b5c3e7" },
+    { theme: "things i stab", associatedWords: ["ribs", "stomach", "cheeks", "steak"], color: "#bb84c2" }
+]; 
 
 var lives = 4;
 var selectedWords = [];
