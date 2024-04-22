@@ -6,10 +6,10 @@
 ]
 
 var wordPairs1 = [
-    { theme: "our past date locations", associatedWords: ["movies", "bowling", "sushi", "restaurant"], color: "#f9da6d" },
-    { theme: "tree", associatedWords: ["leaf", "branch", "bark", "wood"], color: "#a4c45c" },
-    { theme: "car", associatedWords: ["drive", "engine", "road", "wheel"], color: "#b5c3e7" },
-    { theme: "yo", associatedWords: ["huh", "bruh", "bro", "pal"], color: "#bb84c2" }
+    { theme: "future plans", associatedWords: ["Skydiving", "Candlelight Concert", "vivid", "Thredbo"], color: "#f9da6d" },
+    { theme: "our past date locations", associatedWords: ["movies", "bowling", "sushi", "restaurant"], color: "#a4c45c" },
+    { theme: "favourite drinks", associatedWords: ["coke", "monster", "juice", "Passionfruit"], color: "#b5c3e7" },
+    { theme: "movie treats", associatedWords: ["grapes", "thins chips", "sour skittles", "frozen coke"], color: "#bb84c2" }
 ];
 
 var wordPairs2 = [
@@ -114,6 +114,7 @@ function clearButtonGrid(wordPairs) {
     successfulPairs = []; 
     pastGuesses = []; 
     currentMerge = 0;
+    gameOver = false;
     gameSelectorButton.style.display = "none";
     lives = 4; 
     updateLives(0, wordPairs); 
@@ -154,6 +155,7 @@ function preInitialiseGame(selectedWordPair) {
 
     pastGuesses = [];
     currentMerge = 0;
+    gameOver = false;
 
     closeGameSelector();
 
@@ -344,32 +346,58 @@ function submitAnswer() {
         submitButton.classList.remove("selected");
         submitButton.setAttribute("disabled", "disabled");
         return;
-    }
+    } else if (!gameOver) {
+        var selectedButtons = document.querySelectorAll('.selected:not(#submit)');
+        selectedButtons.forEach(function (button, index) {
+            setTimeout(function () {
+                button.style.animation = 'bounce 0.5s ease-in-out';
+                setTimeout(function () {
+                    button.style.animation = ''; // Reset animation after it finishes
+                }, 500);
+            }, index * 100); // Adjust the delay as needed
+        });
 
-    var currentPair = findWordPair(selectedWords[0]);
-
-
-    if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
-        successfulPairs.push(currentPair);
-        pastGuesses.push(currentSet);
-        selectedWords = [];
-        displayWords(); 
-        if (successfulPairs.length === wordPairs.length) {
-            gameOverWin(); 
-        }
+        setTimeout(function () {
+            continueSubmit();
+        }, selectedButtons.length * 100 + 500); // Adjust the delay for continuation
     } else {
-        updateLives(-1);
-        pastGuesses.push(currentSet);
-
+        continueSubmit();
     }
 
-    if (oneAway(selectedWords)) {
-        showNotification("One away...");
-    }
+    function continueSubmit() {
+        var currentPair = findWordPair(selectedWords[0]);
 
-    submitButton.classList.remove("selected");
-    submitButton.setAttribute("disabled", "disabled");
+        if (selectedWords.every(word => currentPair.associatedWords.includes(word))) {
+            successfulPairs.push(currentPair);
+            pastGuesses.push(currentSet);
+            selectedWords = [];
+            displayWords();
+            if (successfulPairs.length === wordPairs.length) {
+                gameOverWin();
+            }
+        } else {
+            var selectedButtons = document.querySelectorAll('.selected:not(#submit)');
+            selectedButtons.forEach(function (button) {
+                button.style.backgroundColor = '#999888'; 
+                button.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(function () {
+                    button.style.animation = '';
+                    button.style.backgroundColor = '';
+                }, 500);
+            });
+            updateLives(-1);
+            pastGuesses.push(currentSet);
+        }
+
+        if (oneAway(selectedWords)) {
+            showNotification("One away...");
+        }
+
+        submitButton.classList.remove("selected");
+        submitButton.setAttribute("disabled", "disabled");
+    }
 }
+
 
 
 function oneAway(selectedWords) {
@@ -465,7 +493,9 @@ function updateLives(change) {
     }
     livesDisplay.textContent = livesText;
     if (lives === 0) {
-        gameOverLose();
+        setTimeout(function () {
+            gameOverLose();
+        }, 1000);
     }
 }
 

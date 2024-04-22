@@ -461,3 +461,29 @@ body {
         width: 100%;
     }
 }
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20%, 60%, 80% {
+        transform: translateX(-5px);
+    }
+    40%, 100% {
+        transform: translateX(5px);
+    }
+}
