@@ -31,6 +31,7 @@ var selectedWords = [];
 var successfulPairs = [];
 var pastGuesses = [];
 var currentMerge = 0;
+var gameOver = false;
 
 var buttonGrid = document.getElementById("button-grid");
 var submitButton = document.getElementById("submit");
@@ -76,14 +77,35 @@ function startGame2() {
     var lives = document.getElementById("lives");
     lives.style.display = "none";
 
-    var gameSelector = document.getElementById("game-selector-box");
-    gameSelector.style.display = "inline-block";
-
-    var closeGameSelector = document.getElementById("close-selector");
-    closeGameSelector.style.display = "block";
-
     gameSelectorButton.style.display = "inline-block";
     document.getElementById("game-selector-button").classList.add("disable-hover");
+    setTimeout(function () {
+        var gameSelector = document.getElementById("game-selector-box");
+        var closeGameSelector = document.getElementById("close-selector");
+
+        // Start with 0 opacity
+        gameSelector.style.opacity = 0;
+        closeGameSelector.style.opacity = 0;
+
+        // Display the elements
+        gameSelector.style.display = "inline-block";
+        closeGameSelector.style.display = "block";
+
+        // Fade in animation
+        var fadeInInterval = setInterval(function () {
+            // Increase opacity by 0.2 every 50 milliseconds
+            gameSelector.style.opacity = parseFloat(gameSelector.style.opacity) + 0.2;
+            closeGameSelector.style.opacity = parseFloat(closeGameSelector.style.opacity) + 0.2;
+
+            // Stop the interval when opacity reaches 1
+            if (parseFloat(gameSelector.style.opacity) >= 1) {
+                clearInterval(fadeInInterval);
+            }
+        }, 50); 
+    }, 2000); // delay before starting fade-in
+
+
+
 }
 
 function clearButtonGrid(wordPairs) {
@@ -177,7 +199,6 @@ function displayWords() {
             currentRow.classList.add("button-grid");
             buttonGrid.appendChild(currentRow);
         }
-        console.log(index)
         if (index > currentMerge) {
             currentMerge = index;
         }
@@ -235,7 +256,11 @@ function createMergeButton(theme, color, associatedWords, index, currentMerge) {
     button.appendChild(associatedWordsDiv);
 
     // Only add the pop-out animation class for the current indexed button
-    if (index === currentMerge) {
+    if (gameOver) {
+        setTimeout(function () {
+            button.classList.add("pop-out");
+        }, index * 400);
+    } else if (index === currentMerge) {
         button.classList.add("pop-out");
     }
 
@@ -382,9 +407,10 @@ function showNotification(message) {
 function gameOverLose() {
     showNotification("Next Time");
     clearSelectedState();
+    gameOver = true;
     submitRemainingWordPairs();
-
 }
+
 
 function submitRemainingWordPairs() {
     var remainingPairs = wordPairs.filter(pair => !successfulPairs.includes(pair));
