@@ -26,6 +26,13 @@ var wordPairs3 = [
     { theme: "things i stab", associatedWords: ["ribs", "stomach", "cheeks", "steak"], color: "#bb84c2" }
 ]; 
 
+var wordPairs4 = [
+    { theme: "Travel Foods", associatedWords: ["onigiri", "sandwiches", "yakult", "chicken"], color: "#f9da6d" },
+    { theme: "Places to go together", associatedWords: ["Greece", "Gold Coast", "Switzerland", "Italy"], color: "#a4c45c" },
+    { theme: "Places Skied", associatedWords: ["Japan", "New Zealand", "Thredbo", "Perisher"], color: "#b5c3e7" },
+    { theme: "Where friends (plushies) were found", associatedWords: ["Ikea", "Hakuba", "Newcastle", "Audrey"], color: "#bb84c2" }
+]; 
+
 var lives = 4;
 var selectedWords = [];
 var successfulPairs = [];
