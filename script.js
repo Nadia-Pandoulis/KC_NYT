@@ -33,6 +33,13 @@ var wordPairs4 = [
     { theme: "Where friends (plushies) were found", associatedWords: ["Ikea", "Hakuba", "Newcastle", "Audrey"], color: "#bb84c2" }
 ]; 
 
+var wordPairs5 = [
+    { theme: "Captial Cities", associatedWords: ["Cario", "Brisbane", "Belém", "Washington"], color: "#f9da6d" },
+    { theme: "To Surpass", associatedWords: ["Trump", "Beat", "Eclipse", "Top"], color: "#a4c45c" },
+    { theme: "One Word Tech Names", associatedWords: ["Nest", "Drift", "Stripe", "Meta"], color: "#b5c3e7" },
+    { theme: "80s/90s Songs", associatedWords: ["Iran", "Civil War", "Istanbul", "Jump"], color: "#bb84c2" }
+]; 
+
 var lives = 4;
 var selectedWords = [];
 var successfulPairs = [];
