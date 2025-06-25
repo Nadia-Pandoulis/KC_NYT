@@ -34,7 +34,7 @@ var wordPairs4 = [
 ]; 
 
 var wordPairs5 = [
-    { theme: "Captial Cities", associatedWords: ["Cario", "Brisbane", "Belém", "Washington"], color: "#f9da6d" },
+    { theme: "Captial Cities", associatedWords: ["Cairo", "Brisbane", "Belém", "Washington"], color: "#f9da6d" },
     { theme: "To Surpass", associatedWords: ["Trump", "Beat", "Eclipse", "Top"], color: "#a4c45c" },
     { theme: "One Word Tech Names", associatedWords: ["Nest", "Drift", "Stripe", "Meta"], color: "#b5c3e7" },
     { theme: "80s/90s Songs", associatedWords: ["Iran", "Civil War", "Istanbul", "Jump"], color: "#bb84c2" }
@@ -122,7 +122,7 @@ function startGame2() {
 
 }
 
-function clearButtonGrid(wordPairs) {
+function clearButtonGrid(currentWordPairs) {
     buttonGrid.innerHTML = ""; 
     selectedWords = []; 
     successfulPairs = []; 
@@ -131,7 +131,7 @@ function clearButtonGrid(wordPairs) {
     gameOver = false;
     gameSelectorButton.style.display = "none";
     lives = 4; 
-    updateLives(0, wordPairs); 
+    updateLives(0, currentWordPairs); 
 }
 
 function closeGameSelector() {
@@ -155,7 +155,7 @@ function openGameSelector() {
 
 function preInitialiseGame(selectedWordPair) {
     wordPairs = selectedWordPair;
-    clearButtonGrid();
+    clearButtonGrid(selectedWordPair);
 
     deselectAllButton.style.display = "inline-block";
     submitButton.style.display = "inline-block";
